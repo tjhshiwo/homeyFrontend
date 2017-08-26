@@ -32,8 +32,8 @@ app.controller("myCtrl", function($scope, $http) {
 app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 	$scope.getAllHobbyKind = function(){
 		$http({
-//			url : 'http://118.139.20.206:8080/homey/getAllHobbyServlet',
-			url : 'http://homeycloudback.azurewebsites.net/homeyBack/getAllHobbyServlet',
+			url : 'http://localhost:8080/homeyBack/getAllHobbyServlet',
+//			url : 'http://homeycloudback.azurewebsites.net/homeyBack/getAllHobbyServlet',
 			method : "GET"
 		}).then(function successCallback(response) {
 			$scope.allHobbyKind = response.data;
@@ -46,17 +46,18 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 		console.log($scope.hobbykind);
 //		hobbyService.setHobbyKind($scope.hobbykind);
 		sessionStorage.setItem('hobbyKind', kind);
-		$window.location.href = "details.html";
+		$window.location.href = "hobby_detail.html";
 	}
 });
 
 app.controller("getHobbyDetailCtrl", function($scope, $http) {
 	$scope.hobbyKind = sessionStorage.getItem('hobbyKind');
+	// get hobby description, image, title
 	$scope.getHobbyDesc = function(){
 		$http({
 			// TODO get hobby description
-//			url: 'http://localhost:8080/homeyBack/getHobbyDetailServlet',
-			url: 'http://homeycloudback.azurewebsites.net/homeyBack/getHobbyDetailServlet',
+			url: 'http://localhost:8080/homeyBack/getHobbyDetailServlet',
+//			url: 'http://homeycloudback.azurewebsites.net/homeyBack/getHobbyDetailServlet',
 			method : "GET",
 			params: {hobbyKind: $scope.hobbyKind}
 		}).then(function successCallback(response) {
@@ -68,14 +69,16 @@ app.controller("getHobbyDetailCtrl", function($scope, $http) {
 	$scope.getHobbyFromServer = function() {
 		$http({
 			// http://118.139.20.206:8080/homey/javaAngularJS
-			// url : 'http://118.139.20.206:8080/homey/javaAngularJS',
-			url: 'http://homeycloudback.azurewebsites.net/homeyBack/javaAngularJS',
+			 url : 'http://localhost:8080/homeyBack/javaAngularJS',
+//			url: 'http://homeycloudback.azurewebsites.net/homeyBack/javaAngularJS',
 			method : "GET",
 			params: {hobbyKind: $scope.hobbyKind}
 		}).then(function successCallback(response) {
-			$scope.hobbyDetail = response.data;
+			var testDat = "[\"allAddress\":\"['PO Box 336,Warrandyte,VIC,3113','29 Regent Street,Mount Waverley,VIC,3149']\"]";
+			alert(testDat);
+			$scope.hobbyDetail = testDat;//response.data;
 		}, function errorCallback(response) {
-//			alert("can't get hobby locations");
+			alert("can't get hobby locations");
 		});
 	};
 });

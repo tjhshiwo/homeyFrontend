@@ -34,16 +34,16 @@
 	<!-- the reason why not using template is because of the animation embeded in JS file -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">Homey</a>
+			<a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Homey</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
 				Menu <i class="fa fa-bars"></i>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Hobbies</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Events</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Future plan</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#portfolio">Hobbies</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#about">Events</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#contact">Future plan</a></li>
 				</ul>
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 					<img ng-src='images/hobbyHome/{{hobbyDesc.image}}' class="homepageImg" style="height: 100%; width: 100%" alt="">
 				</div>
 				<div class="col-md-5 col-sm-12">
-					<h3>{{hobbyDesc.title}}</h3>
+					<h3 style="text-align:center">{{hobbyDesc.title}}</h3>
 					<p>{{hobbyDesc.description}}</p>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 
 	<section style="margin-top: -120px;">
 		<div class="container" ng-init="getHobbyFromServer()">
-			<div id="angularvalue" >{{hobbyDetail.allAddress}}</div>
+			<div id="angularvalue" style="display: none">{{hobbyDetail.allAddress}}</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="panel panel-default">
@@ -96,17 +96,13 @@
 		w3.includeHTML();
 
 		// set locations to js variable
-		window.onload = testing;
-		var address;
-		function testing() {
-			addresses = [ '60-64 Hattam Street Golden Square, VIC, 3555',
-					'Cnr Barry Street & Jersey Road Bayswater, VIC, 3153' ];
-			/* var value=document.getElementById('angularvalue').innerText; */
-			/* alert(addresses); */
-		}
-
+		window.onload = initMap;
+		var addresses;
+		var resultsMap;
+		var geocoder;
 		function initMap() {
-			var map = new google.maps.Map(document
+			addresses = document.getElementById('angularvalue').innerText;
+			resultsMap = new google.maps.Map(document
 					.getElementById('gmap-basic-marker'), {
 				zoom : 8,
 				center : {
@@ -114,44 +110,46 @@
 					lng : 144.9631
 				}
 			});
-			var geocoder = new google.maps.Geocoder();
-
-			/* document.getElementById('submit').addEventListener('click',
-					function() {
-						geocodeAddress(geocoder, map);
-					}); */
-		}
-
-		function geocodeAddress(geocoder, resultsMap) {
-			for (i = 0; i < addresses.length; i++) {
-				alert(addresses[i]);
-				// var address = document.getElementById('address').value;
-				geocoder
-						.geocode(
-								{
-									'address' : addresses[i]
-								},
-								function(results, status) {
-									if (status === 'OK') {
-										resultsMap
-												.setCenter(results[0].geometry.location);
-										var marker = new google.maps.Marker(
-												{
-													map : resultsMap,
-													position : results[0].geometry.location
-												});
-									} else {
-										alert('Geocode was not successful for the following reason: '
-												+ status);
-									}
-								});
+			geocoder = new google.maps.Geocoder();
+			var addressesArray = addresses.split("^");
+			for (i = 0; i < addressesArray.length; i++) {
+				geocodeAddress(addressesArray[i]);
 			}
 		}
+
+		// potential issue: some marker may be rendered for more than once, still don't know why
+		function geocodeAddress(address) {
+			console.log("geo address: "+address);
+			geocoder
+					.geocode(
+							{
+								'address' : address
+							},
+							function(results, status) {
+								if (status === 'OK') {
+									// locate the marker in center
+									//resultsMap.setCenter(results[0].geometry.location);
+									var marker = new google.maps.Marker(
+											{
+												map : resultsMap,
+												position : results[0].geometry.location
+												//animation : google.maps.Animation.DROP
+											});
+								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+									setTimeout(function() {
+										geocodeAddress(address);
+									}, 100);
+								} else {
+									console.log("Geocode was not successful for the following reason:"
+											+ status);
+								}
+							});
+		}
 	</script>
-	
+
 	<!-- Replace the value of the key parameter with your own API key. -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
-	
+
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js">
 		

@@ -74,9 +74,9 @@ app.controller("getHobbyDetailCtrl", function($scope, $http) {
 			method : "GET",
 			params: {hobbyKind: $scope.hobbyKind}
 		}).then(function successCallback(response) {
-			var testDat = "[\"allAddress\":\"['PO Box 336,Warrandyte,VIC,3113','29 Regent Street,Mount Waverley,VIC,3149']\"]";
-			alert(testDat);
-			$scope.hobbyDetail = testDat;//response.data;
+//			var testDat = "[{\"allAddress\":\"['PO Box 336,Warrandyte,VIC,3113','29 Regent Street,Mount Waverley,VIC,3149']\"}]";
+			$scope.hobbyDetail = response.data;
+//			alert($scope.hobbyDetail);
 		}, function errorCallback(response) {
 			alert("can't get hobby locations");
 		});

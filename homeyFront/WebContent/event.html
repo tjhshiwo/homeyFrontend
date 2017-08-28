@@ -91,24 +91,25 @@
 
 			<!--- ------------- START: upcoming events---------------- -->
 			<br>
-			<!--<h3 class="text-center">Upcoming events</h3>
-			 <div class="row col-md-12">
-				<div class="col-sm-4 portfolio-item" ng-repeat="e in events">
-					<a class="portfolio-link" ng-click="getEventDetail(e.id)">
+			<h3 class="text-center">Upcoming events</h3>
+			<div class="col-md-12">
+				<div class="col-sm-4 " ng-repeat="e in events">
+					<a class="" ng-click="getEventDetail(e.id)">
 						<div class="caption">
 							<div class="caption-content">
-								<i class="fa fa-search-plus fa-3x"></i>{{e.name}}
+								Upcoming events will be displayed here:<br> Event description: {{e.desc}}
 							</div>
 						</div>
 					</a>
 				</div>
-			</div> -->
+					<hr>
+			</div>
 			<!--- ------------- END: upcoming events   ---------------- -->
 
 
 			<!--- ------------- START: create an event ---------------- -->
-			<div class="col-lg-9">
-				<form name="eventForm"  novalidate>
+			<div class="col-lg-12">
+				<form name="eventForm" novalidate>
 					<div class="form-group col-lg-12">
 						<label>Event name</label>
 						<span style="color: red" ng-show="eventForm.eventName.$dirty && eventForm.eventName.$invalid">
@@ -116,7 +117,7 @@
 						</span>
 						<input class="form-control" type="text" name="eventName" ng-model="eventName" placeholder="Give a short name" required>
 					</div>
-					<div class="form-group col-lg-6">
+					<div class="form-group col-lg-12">
 						<label>Event type</label>
 						<select name="type" class="form-control">
 							<option value="bbq">BBQ</option>
@@ -124,23 +125,27 @@
 							<option value="outdoor">Outdoor activities</option>
 						</select>
 					</div>
-					<div class="form-group col-lg-6">
-						<label>Suburb</label>
-						<select name="suburb" class="form-control">
-							<option value="bbq">BBQ</option>
-							<option value="readwrite">Reading Writing</option>
-							<option value="outdoor">Outdoor activities</option>
-						</select>
-					</div>
-					<div class="form-group col-lg-6">
-						<label>Address</label>
-						<select name="suburb" class="form-control">
-							<option value="bbq">2,30 Fran St, Clayton</option>
-						</select>
-					</div>
-					<div class="col-lg-12">
+					<div class="form-group col-lg-12">
 						<div class="row">
-							<div class="form-group col-lg-6">
+							<div class=" col-lg-6">
+								<label>Suburb</label>
+								<select name="suburb" class="form-control">
+									<option value="bbq">BBQ</option>
+									<option value="readwrite">Reading Writing</option>
+									<option value="outdoor">Outdoor activities</option>
+								</select>
+							</div>
+							<div class=" col-lg-6">
+								<label>Address</label>
+								<select name="suburb" class="form-control">
+									<option value="bbq">2,30 Fran St, Clayton</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-lg-12">
+						<div class="row">
+							<div class=" col-lg-6">
 								<label>Start time</label>
 								<div class="input-group " data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
 									<input class="form-control form_datetime" type="text" value="" readonly required>
@@ -150,7 +155,7 @@
 								</div>
 								<input type="hidden" id="dtp_input1" value="" />
 							</div>
-							<div class="form-group col-lg-6">
+							<div class=" col-lg-6">
 								<label>End time</label>
 								<div class="input-group date" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
 									<input class="form-control form_datetime" type="text" value="" readonly required>
@@ -162,17 +167,17 @@
 							</div>
 						</div>
 					</div>
-					<div>
 					<div class="form-group col-lg-12">
-								<label>Start time</label>
-									<input class="form-control" type="textarea" value=""  required>
-							</div>
+						<label>Description</label>
+						<textarea class="form-control" required></textarea>
 					</div>
 					<br> <br>
-					<div class="form-group">
-						<button type="submit" id="submit" class="btn btn-success btn-lg" value="submit" style="width: 100%"
-							ng-disabled="myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid">Create
-							your own event</button>
+					<div class="form-group col-lg-12">
+						<div class="form-group">
+							<button type="submit" id="submit" class="btn btn-success btn-lg" value="submit" style="width: 100%"
+								ng-disabled="myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid">Create
+								your own event</button>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -199,12 +204,13 @@
 		var searchApp = angular.module("searchApp", []);
 		searchApp.controller("searchCtrl", function($scope, $http) {
 			$scope.submit = function() {
-				alert(44);
 				$http({
 					method : 'POST',
 					//url : 'http://118.139.29.112:8080/homeyBack/eventSearchServlet',
 					url : 'http://localhost:8080/homeyBack/eventSearchServlet',
-					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded'
+					},
 					//transformRequest: transformRequestAsFormPost,
 					data : {
 						eventSuburb : 'eventSuburb'

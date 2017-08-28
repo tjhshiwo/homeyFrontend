@@ -21,37 +21,164 @@
 <!-- Custom styles for this template -->
 <link href="css/freelancer.css" rel="stylesheet">
 
+<!-- Date picker element -->
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
 <!-- Angular JS  -->
 <script type="text/javascript" src="js/angular-2.js"></script>
 <script type="text/javascript" src="angular/hobbyAngular.js"></script>
 
 <!-- W3C embed other html -->
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
 </head>
 
-<body id="page-top" ng-app="myApp" ng-controller="getHobbyDetailCtrl">
+<body id="page-top">
 	<!-- navigation bar -->
 	<!-- the reason why not using template is because of the animation embeded in JS file -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
 		<div class="container">
 			<a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Homey</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				Menu <i class="fa fa-bars"></i>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#portfolio">Hobbies</a></li>
-					<li class="nav-item active"><a class="nav-link js-scroll-trigger" href="index.html#event">Events</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#event">Events</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#future">Future plan</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.html">Login</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<img class="img-fluid" alt="" src="img/event.jpg">
-	<section style="margin-top: 0px;">
-		<div class="container"></div>
+	<section id="event" style="margin-top: -20px;" ng-app="searchApp" ng-controller="searchCtrl">
+		<img class="img-fluid" alt="" src="img/event5.png">
+		<div class="container">
+			<!--- ------------- START: search bar ----------------------- -->
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8" style="margin-top: -70px;">
+					<form name="searchForm" ng-submit="submit()" method="post">
+						<div class="input-group">
+							<input name="eventSuburb" type="text" class="form-control" placeholder="Suburb..." aria-label="Search for...">
+							&nbsp;
+							<select name="eventType" class=" form-control">
+								<option value="bbq">BBQ</option>
+								<option value="readwrite">Reading Writing</option>
+								<option value="outdoor">Outdoor activities</option>
+							</select>
+							&nbsp;
+							<select name="eventTime" class="form-control">
+								<option value="0">All Dates</option>
+								<option value="1">Today</option>
+								<option value="2">Tomorrow</option>
+								<option value="3">This week</option>
+								<option value="4">Next week</option>
+							</select>
+							&nbsp;
+							<span class="input-group-btn">
+								<button class="btn btn-success" type="submit" style="width: 100px;">Search</button>
+							</span>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<!--- ------------- END: search bar----------------------- -->
+
+			<!--- ------------- START: upcoming events---------------- -->
+			<br>
+			<!--<h3 class="text-center">Upcoming events</h3>
+			 <div class="row col-md-12">
+				<div class="col-sm-4 portfolio-item" ng-repeat="e in events">
+					<a class="portfolio-link" ng-click="getEventDetail(e.id)">
+						<div class="caption">
+							<div class="caption-content">
+								<i class="fa fa-search-plus fa-3x"></i>{{e.name}}
+							</div>
+						</div>
+					</a>
+				</div>
+			</div> -->
+			<!--- ------------- END: upcoming events   ---------------- -->
+
+
+			<!--- ------------- START: create an event ---------------- -->
+			<div class="col-lg-9">
+				<form name="eventForm"  novalidate>
+					<div class="form-group col-lg-12">
+						<label>Event name</label>
+						<span style="color: red" ng-show="eventForm.eventName.$dirty && eventForm.eventName.$invalid">
+							<span ng-show="eventForm.eventName.$error.required"> Event name is required.</span>
+						</span>
+						<input class="form-control" type="text" name="eventName" ng-model="eventName" placeholder="Give a short name" required>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>Event type</label>
+						<select name="type" class="form-control">
+							<option value="bbq">BBQ</option>
+							<option value="readwrite">Reading Writing</option>
+							<option value="outdoor">Outdoor activities</option>
+						</select>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>Suburb</label>
+						<select name="suburb" class="form-control">
+							<option value="bbq">BBQ</option>
+							<option value="readwrite">Reading Writing</option>
+							<option value="outdoor">Outdoor activities</option>
+						</select>
+					</div>
+					<div class="form-group col-lg-6">
+						<label>Address</label>
+						<select name="suburb" class="form-control">
+							<option value="bbq">2,30 Fran St, Clayton</option>
+						</select>
+					</div>
+					<div class="col-lg-12">
+						<div class="row">
+							<div class="form-group col-lg-6">
+								<label>Start time</label>
+								<div class="input-group " data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+									<input class="form-control form_datetime" type="text" value="" readonly required>
+									<span class="input-group-addon">
+										<span class="fa fa-calendar"></span>
+									</span>
+								</div>
+								<input type="hidden" id="dtp_input1" value="" />
+							</div>
+							<div class="form-group col-lg-6">
+								<label>End time</label>
+								<div class="input-group date" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+									<input class="form-control form_datetime" type="text" value="" readonly required>
+									<span class="input-group-addon">
+										<span class="fa fa-calendar"></span>
+									</span>
+								</div>
+								<input type="hidden" id="dtp_input1" value="" />
+							</div>
+						</div>
+					</div>
+					<div>
+					<div class="form-group col-lg-12">
+								<label>Start time</label>
+									<input class="form-control" type="textarea" value=""  required>
+							</div>
+					</div>
+					<br> <br>
+					<div class="form-group">
+						<button type="submit" id="submit" class="btn btn-success btn-lg" value="submit" style="width: 100%"
+							ng-disabled="myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid">Create
+							your own event</button>
+					</div>
+				</form>
+			</div>
+			<!--- ------------- END: create an event ---------------- -->
+
+		</div>
 	</section>
 
 	<!-- Footer -->
@@ -67,12 +194,41 @@
 	<!-- Embed header or footer -->
 	<script>
 		w3.includeHTML();
+
+		// search 
+		var searchApp = angular.module("searchApp", []);
+		searchApp.controller("searchCtrl", function($scope, $http) {
+			$scope.submit = function() {
+				alert(44);
+				$http({
+					method : 'POST',
+					//url : 'http://118.139.29.112:8080/homeyBack/eventSearchServlet',
+					url : 'http://localhost:8080/homeyBack/eventSearchServlet',
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					transformRequest: transformRequestAsFormPost,
+					data : {
+						eventSuburb : 'eventSuburb'
+					}
+				}).then(function successCallback(response) {
+					$scope.events = response.data;
+				}, function errorCallback(response) {
+					alert("Sorry, can't search the events currently.");
+				});
+			};
+
+			$scope.getEventDetail = function() {
+				// TODO
+			}
+		});
 	</script>
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/popper/popper.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- For date picker -->
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 
 	<!-- Plugin JavaScript -->
 	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -83,6 +239,19 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/freelancer.min.js"></script>
+
+	<script type="text/javascript">
+		$('.form_datetime').datetimepicker({
+			//language:  'fr',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			startView : 2,
+			forceParse : 0,
+			showMeridian : 1
+		});
+	</script>
 </body>
 
 </html>

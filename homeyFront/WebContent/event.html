@@ -61,17 +61,17 @@
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8" style="margin-top: -70px;">
-					<form name="searchForm" ng-submit="submit()" method="post">
+					<form name="searchForm" ng-submit="submitSearch()" method="post">
 						<div class="input-group">
-							<input name="eventSuburb" type="text" class="form-control" placeholder="Suburb..." aria-label="Search for...">
+							<input name="eventSuburb" ng-model="eventSuburb" type="text" class="form-control" placeholder="Suburb..." aria-label="Search for...">
 							&nbsp;
-							<select name="eventType" class=" form-control">
+							<select name="eventType" ng-model="eventType" class=" form-control">
 								<option value="bbq">BBQ</option>
 								<option value="readwrite">Reading Writing</option>
 								<option value="outdoor">Outdoor activities</option>
 							</select>
 							&nbsp;
-							<select name="eventTime" class="form-control">
+							<select name="eventTime"  ng-model="eventTime" class="form-control">
 								<option value="0">All Dates</option>
 								<option value="1">Today</option>
 								<option value="2">Tomorrow</option>
@@ -102,14 +102,14 @@
 						</div>
 					</a>
 				</div>
-					<hr>
+				<hr>
 			</div>
 			<!--- ------------- END: upcoming events   ---------------- -->
 
 
 			<!--- ------------- START: create an event ---------------- -->
 			<div class="col-lg-12">
-				<form name="eventForm" novalidate>
+				<form name="eventForm" ng-submit="submitCreate()" novalidate>
 					<div class="form-group col-lg-12">
 						<label>Event name</label>
 						<span style="color: red" ng-show="eventForm.eventName.$dirty && eventForm.eventName.$invalid">
@@ -169,14 +169,16 @@
 					</div>
 					<div class="form-group col-lg-12">
 						<label>Description</label>
-						<textarea class="form-control" required></textarea>
+						<span style="color: red" ng-show="eventForm.description.$dirty && eventForm.description.$invalid">
+							<span ng-show="eventForm.description.$error.required"> Event description is required.</span>
+						</span>
+						<textarea class="form-control" name="description" ng-model="description" required></textarea>
 					</div>
 					<br> <br>
 					<div class="form-group col-lg-12">
 						<div class="form-group">
 							<button type="submit" id="submit" class="btn btn-success btn-lg" value="submit" style="width: 100%"
-								ng-disabled="myForm.email.$dirty && myForm.email.$invalid || myForm.password.$dirty && myForm.password.$invalid">Create
-								your own event</button>
+								ng-disabled="eventForm.eventName.$invalid || eventForm.description.$invalid">Create your own event</button>
 						</div>
 					</div>
 				</form>
@@ -203,17 +205,18 @@
 		// search 
 		var searchApp = angular.module("searchApp", []);
 		searchApp.controller("searchCtrl", function($scope, $http) {
-			$scope.submit = function() {
+			$scope.submitSearch = function() {
+				console.log($scope.eventSuburb);
 				$http({
 					method : 'POST',
-					//url : 'http://118.139.29.112:8080/homeyBack/eventSearchServlet',
 					url : 'http://localhost:8080/homeyBack/eventSearchServlet',
 					headers : {
 						'Content-Type' : 'application/x-www-form-urlencoded'
 					},
-					//transformRequest: transformRequestAsFormPost,
-					data : {
-						eventSuburb : 'eventSuburb'
+					params : {
+						eventSuburb : $scope.eventSuburb,
+						eventType : $scope.eventType,
+						eventTime : $scope.eventTime
 					}
 				}).then(function successCallback(response) {
 					$scope.events = response.data;
@@ -222,8 +225,20 @@
 				});
 			};
 
-			$scope.getEventDetail = function() {
-				// TODO
+			// Create a event, submit the form
+			$scope.submitCreate = function() {
+				$http({
+					method : 'POST',
+					// NEED TO CHANGE TODO
+					url : 'http://localhost:8080/homeyBack/eventSearchServlet',
+					headers : {
+						'Content-Type' : 'application/x-www-form-urlencoded'
+					}
+				}).then(function successCallback(response) {
+					$scope.events = response.data;
+				}, function errorCallback(response) {
+					alert("Sorry, can't search the events currently.");
+				});
 			}
 		});
 	</script>

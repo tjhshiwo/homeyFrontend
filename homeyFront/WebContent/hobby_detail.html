@@ -34,16 +34,25 @@
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
 		<div class="container">
 			<a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Homey</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				Menu <i class="fa fa-bars"></i>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				Menu
+				<i class="fa fa-bars"></i>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#portfolio">Hobbies</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#event">Events</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#future">Future plan</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.html#login">Login</a></li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="index.html#portfolio">Hobbies</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="index.html#event">Events</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="index.html#future">Future plan</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="login.html#login">Login</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -86,7 +95,8 @@
 
 	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 	<div class="scroll-top d-lg-none">
-		<a class="btn btn-primary js-scroll-trigger" href="#page-top"> <i class="fa fa-chevron-up"></i>
+		<a class="btn btn-primary js-scroll-trigger" href="#page-top">
+			<i class="fa fa-chevron-up"></i>
 		</a>
 	</div>
 
@@ -102,6 +112,8 @@
 		var geocoder;
 		var popupWindow;
 
+		var count = 0;
+
 		function initMap() {
 			addresses = document.getElementById('angularvalue').innerText;
 			resultsMap = new google.maps.Map(document
@@ -116,6 +128,7 @@
 			geocoder = new google.maps.Geocoder();
 			var addressesArray = addresses.split("^");
 			for (i = 0; i < addressesArray.length; i++) {
+				count = 1;
 				geocodeAddress(addressesArray[i]);
 			}
 		}
@@ -138,16 +151,17 @@
 										position : results[0].geometry.location
 									//animation : google.maps.Animation.DROP
 									});
-									google.maps.event.addListener(marker, 'click', (function(marker) {
+									/* google.maps.event.addListener(marker, 'click', (function(marker) {
 										return function() {
 											popupWindow.setContent(address);
 											popupWindow.open(resultsMap, marker);
 										}
-									})(marker, i));
+									})(marker, i)); */
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
 									setTimeout(function() {
+										console.log(count++);
 										geocodeAddress(address);
-									}, 100);
+									}, 1000);
 								} else {
 									console
 											.log("Geocode was not successful for the following reason:"
@@ -156,37 +170,38 @@
 							});
 		}
 
-
-
-
-
-      	/// find current location
+		/*****************************************************
+		 * find current location
+		 */
 		function findCurrentLocation() {
-			var infoWindow = new google.maps.InfoWindow({map: resultsMap});
-	        // Try HTML5 geolocation.
-	        if (navigator.geolocation) {
-	          navigator.geolocation.getCurrentPosition(function(position) {
-	            var pos = {
-	              lat: position.coords.latitude,
-	              lng: position.coords.longitude
-	            };
-	            // don't need the inforWindow for now
-	            //infoWindow.setPosition(pos);
-	            //infoWindow.setContent('You');
-	            resultsMap.setCenter(pos);
-	            var Marker = new google.maps.Marker({
-	                map: resultsMap,
-	                animation: google.maps.Animation.DROP,
-	                position: pos,
-	                icon: "img/indicator.png"
-	        });
-	          }, function() {
-	            handleLocationError(true, infoWindow, resultsMap.getCenter());
-	          });
-	        } else {
-	          // Browser doesn't support Geolocation
-	          handleLocationError(false, infoWindow, resultsMap.getCenter());
-	        }
+			var infoWindow = new google.maps.InfoWindow({
+				map : resultsMap
+			});
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = {
+						lat : position.coords.latitude,
+						lng : position.coords.longitude
+					};
+					// don't need the inforWindow for now
+					// infoWindow.setPosition(pos);
+					// infoWindow.setContent('You');
+					resultsMap.setCenter(pos);
+					var Marker = new google.maps.Marker({
+						map : resultsMap,
+						animation : google.maps.Animation.DROP,
+						position : pos,
+						icon : "img/indicator.png"
+					});
+				}, function() {
+					handleLocationError(true, infoWindow, resultsMap
+							.getCenter());
+				});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow, resultsMap.getCenter());
+			}
 
 		}
 	</script>

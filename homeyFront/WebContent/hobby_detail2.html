@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Homey</title>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+<!-- Custom styles for this template -->
+<link href="css/freelancer.css" rel="stylesheet">
+
+<!-- Angular JS  -->
+<script type="text/javascript" src="js/angular-2.js"></script>
+<script type="text/javascript" src="angular/hobbyAngular.js"></script>
+
+<!-- W3C embed other html -->
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+</head>
+
+<body id="page-top" ng-app="myApp" ng-controller="getHobbyDetailCtrl">
+	<!-- navigation bar -->
+	<!-- the reason why not using template is because of the animation embeded in JS file -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Homey</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				Menu <i class="fa fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#portfolio">Hobbies</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#event">Events</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html#future">Future plan</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.html#login">Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section style="margin-top: 100px;" ng-init="getHobbyDesc()">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 col-sm-12">
+					<img ng-src='images/hobbyHome/{{hobbyDesc.image}}' class="homepageImg" style="height: 100%; width: 100%" alt="">
+				</div>
+				<div class="col-md-5 col-sm-12">
+					<h3 style="text-align: center">{{hobbyDesc.title}}</h3>
+					<p>{{hobbyDesc.description}}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section style="margin-top: -120px;">
+		<div class="container" ng-init="getHobbyFromServer()">
+			<div id="angularvalue" style="display: none">{{hobbyDetail.allAddress}}</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<p>Places you can visit</p>
+						</div>
+						<div class="panel-body">
+							<div id="gmap-basic-marker" style="height: 500px; width: 100%;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<div w3-include-html="layout/footer2.html"></div>
+
+	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+	<div class="scroll-top d-lg-none">
+		<a class="btn btn-primary js-scroll-trigger" href="#page-top"> <i class="fa fa-chevron-up"></i>
+		</a>
+	</div>
+
+
+	<!-- Embed header or footer -->
+	<script>
+		w3.includeHTML();
+
+		// set locations to js variable
+		window.onload = initMap;
+		var addresses;
+		var resultsMap;
+		var geocoder;
+		var popupWindow;
+		
+		var count =0 ;
+
+		function initMap() {
+			addresses = document.getElementById('angularvalue').innerText;
+			resultsMap = new google.maps.Map(document
+					.getElementById('gmap-basic-marker'), {
+				zoom : 10,
+				center : {
+					lat : -37.8136,
+					lng : 144.9631
+				}
+			});
+			findCurrentLocation();
+			geocoder = new google.maps.Geocoder();
+			var addressesArray = addresses.split("^");
+			for (i = 0; i < addressesArray.length; i++) {
+				count=1;
+				geocodeAddress(addressesArray[i]);
+			}
+		}
+
+		// potential issue: some marker may be rendered for more than once, still don't know why
+		function geocodeAddress(address) {
+			console.log("geo address: " + address);
+			popupWindow = new google.maps.InfoWindow();
+			geocoder
+					.geocode(
+							{
+								'address' : address
+							},
+							function(results, status) {
+								if (status === 'OK') {
+									// locate the marker in center
+									//resultsMap.setCenter(results[0].geometry.location);
+									var marker = new google.maps.Marker({
+										map : resultsMap,
+										position : results[0].geometry.location
+									//animation : google.maps.Animation.DROP
+									});
+									/* google.maps.event.addListener(marker, 'click', (function(marker) {
+										return function() {
+											popupWindow.setContent(address);
+											popupWindow.open(resultsMap, marker);
+										}
+									})(marker, i)); */
+								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+									setTimeout(function() {
+										console.log(count++);
+										geocodeAddress(address);
+									}, 1000);
+								} else {
+									console
+											.log("Geocode was not successful for the following reason:"
+													+ status);
+								}
+							});
+		}
+
+
+
+
+
+      	/// find current location
+		function findCurrentLocation() {
+			var infoWindow = new google.maps.InfoWindow({map: resultsMap});
+	        // Try HTML5 geolocation.
+	        if (navigator.geolocation) {
+	          navigator.geolocation.getCurrentPosition(function(position) {
+	            var pos = {
+	              lat: position.coords.latitude,
+	              lng: position.coords.longitude
+	            };
+	            // don't need the inforWindow for now
+	            //infoWindow.setPosition(pos);
+	            //infoWindow.setContent('You');
+	            resultsMap.setCenter(pos);
+	            var Marker = new google.maps.Marker({
+	                map: resultsMap,
+	                animation: google.maps.Animation.DROP,
+	                position: pos,
+	                icon: "img/indicator.png"
+	        });
+	          }, function() {
+	            handleLocationError(true, infoWindow, resultsMap.getCenter());
+	          });
+	        } else {
+	          // Browser doesn't support Geolocation
+	          handleLocationError(false, infoWindow, resultsMap.getCenter());
+	        }
+
+		}
+	</script>
+
+	<!-- Replace the value of the key parameter with your own API key. -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js">
+		
+	</script>
+	<script src="vendor/popper/popper.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/freelancer.min.js"></script>
+</body>
+
+</html>

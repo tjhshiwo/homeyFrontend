@@ -21,6 +21,7 @@
 <!-- Custom styles for this template -->
 <link href="css/freelancer.css" rel="stylesheet">
 
+
 <!-- Date picker element -->
 <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
@@ -63,20 +64,15 @@
 				<div class="col-md-8" style="margin-top: -70px;">
 					<form name="searchForm" ng-submit="submitSearch()" method="post">
 						<div class="input-group">
-							<input name="eventSuburb" ng-model="eventSuburb" type="text" class="form-control" placeholder="Suburb..." aria-label="Search for...">
+							<input name="eventSuburb" ng-model="eventSuburb" type="text" class="form-control" placeholder="Suburb..."
+								aria-label="Search for...">
 							&nbsp;
-							<select name="eventType" ng-model="eventType" class=" form-control">
-								<option value="bbq">BBQ</option>
-								<option value="readwrite">Reading Writing</option>
-								<option value="outdoor">Outdoor activities</option>
+							<select name="eventType" class="form-control">
+								<option ng-repeat="value in initValues.eventTypes" value="{{value}}">{{value}}</option>
 							</select>
 							&nbsp;
-							<select name="eventTime"  ng-model="eventTime" class="form-control">
-								<option value="0">All Dates</option>
-								<option value="1">Today</option>
-								<option value="2">Tomorrow</option>
-								<option value="3">This week</option>
-								<option value="4">Next week</option>
+							<select name="eventTime" class="form-control">
+								<option ng-repeat="value in initValues.eventTime" value="{{value}}">{{value}}</option>
 							</select>
 							&nbsp;
 							<span class="input-group-btn">
@@ -92,7 +88,20 @@
 			<!--- ------------- START: upcoming events---------------- -->
 			<br>
 			<h3 class="text-center">Upcoming events</h3>
+
+			 <div class="card card-outline-primary mb-3 text-center">
+				<!-- <div class="card-block">
+					<blockquote class="card-blockquote">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<footer>
+							Someone famous in <cite title="Source Title">Source Title</cite>
+						</footer>
+					</blockquote>
+				</div> -->
+			</div> 
+
 			<div class="col-md-12">
+			
 				<div class="col-sm-4 " ng-repeat="e in events">
 					<a class="" ng-click="getEventDetail(e.id)">
 						<div class="caption">
@@ -119,10 +128,8 @@
 					</div>
 					<div class="form-group col-lg-12">
 						<label>Event type</label>
-						<select name="type" class="form-control">
-							<option value="bbq">BBQ</option>
-							<option value="readwrite">Reading Writing</option>
-							<option value="outdoor">Outdoor activities</option>
+						<select name="eventType" class="form-control">
+							<option ng-repeat="value in 	initValues.eventTypes" value="{{value}}">{{value}}</option>
 						</select>
 					</div>
 					<div class="form-group col-lg-12">
@@ -205,8 +212,16 @@
 		// search 
 		var searchApp = angular.module("searchApp", []);
 		searchApp.controller("searchCtrl", function($scope, $http) {
+			// Initialise the options for select input
+			$scope.initValues = {
+				"eventTypes" : [ "BBQ", "Read Write", "Outdoor activities",
+						"Sports" ],
+				"eventTime" : [ "All Dates", "Today", "Tomorrow", "This week",
+						"Next week" ]
+			};
+
+			// Search events
 			$scope.submitSearch = function() {
-				console.log($scope.eventSuburb);
 				$http({
 					method : 'POST',
 					url : 'http://localhost:8080/homeyBack/eventSearchServlet',

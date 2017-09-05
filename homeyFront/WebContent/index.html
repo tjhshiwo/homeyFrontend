@@ -26,6 +26,17 @@
 
 <!-- W3C embed other html -->
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+
+<!-- Unify -->
+<!-- CSS Global Compulsory -->
+<link rel="stylesheet" href="unify/vendor/bootstrap/bootstrap.min.css">
+
+<!-- CSS Unify -->
+<link rel="stylesheet" href="unify/css/unify.css">
+
+<!-- CSS Customization -->
+<link rel="stylesheet" href="unify/css/custom.css">
 </head>
 
 <body id="page-top">
@@ -58,7 +69,12 @@
 				<hr class="star-light">
 				<span class="skills">Explore it</span>
 			</div>
+			<div class="g-mb-30 g-mb-70--sm">
+              <a class="js-go-to btn u-btn-outline-white g-min-width-170 g-color-primary--hover g-font-weight-600 g-font-size-13 text-uppercase g-px-30 g-py-15 mx-3 g-mb-15" href="#" data-target="#main">Start Browsing</a>
+              <a class="btn u-btn-white g-min-width-170 g-color-primary--hover g-font-weight-600 g-font-size-13 text-uppercase g-px-30 g-py-15 mx-3 g-mb-15" target="_blank" href="https://wrapbootstrap.com/theme/unify-responsive-website-template-WB0412697">Purchase Now</a>
+            </div>
 		</div>
+		
 	</header>
 
 	<!-- Hobbies Grid Section -->
@@ -67,11 +83,12 @@
 			<h1 class="text-center">Hobbies</h1>
 			<hr class="star-primary">
 			<div class="row" ng-app="myApp" ng-controller="getHobbiesCtrl" ng-init="getAllHobbyKind()">
-				<div class="col-sm-4 portfolio-item" ng-repeat="kind in allHobbyKind">
+				<div class="col-sm-3 portfolio-item" ng-repeat="kind in allHobbyKind">
 					<a class="portfolio-link" ng-click="getHobbyDetail(kind.id)">
 						<div class="caption">
 							<div class="caption-content">
-								<i class="fa fa-search-plus fa-3x"></i>
+								<!-- <i class="fa fa-search-plus fa-3x"></i> -->
+								<p>Are you lonely?</p>
 							</div>
 						</div> <img class="img-fluid" ng-src='images/hobbyPotfolio/{{kind.image}}' alt="">
 					</a>
@@ -103,7 +120,7 @@
 	<!-- future Section -->
 	<section id="future">
 		<div class="container">
-			<h2 class="text-center">Future plan</h2>
+			<h2 class="text-center">Future plan - Iteration 3</h2>
 			<hr class="star-primary">
 			<div class="row">
 				<div class="col-lg-8 mx-auto">

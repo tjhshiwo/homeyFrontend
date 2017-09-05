@@ -117,15 +117,22 @@
 		var loginApp = angular.module("loginApp", []);
 		loginApp.controller("loginCtrl", function($scope, $http) {
 			$scope.submit = function() {
+				console.log($scope.email);
 				$http({
 					method : 'POST',
-					url : 'http://localhost:8080/homeyBack/loginServlet'
+					url : 'http://localhost:8080/homeyBack/loginServlet',
+					params: {
+						email: $scope.email,
+						password: $scope.password
+					}
 				}).then(function successCallback(response) {
 					$scope.loginMsg = response.data;
 					// loginMsg: 1 success; 0 fail
-					if (loginMsg == 1) {
+					if ($scope.loginMsg[0].status == 1) {
 						// redirect to personal page
-					} else if (loginMsg == 0) {
+						window.location.href = "http://localhost:8080/homeyFront";
+						// https://stackoverflow.com/questions/14206492/how-do-i-store-a-current-user-context-in-angular
+					} else if ($scope.loginMsg[0].status == 0) {
 						// alert warning, wrong password or email
 						alert("Wrong email or password");
 					}

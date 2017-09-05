@@ -38,6 +38,7 @@
 
 <!-- CSS Customization -->
 <link rel="stylesheet" href="unify/css/custom.css">
+<link rel="stylesheet" href="css/weather.css">
 
 <!-- W3C embed other html -->
 <script src="https://www.w3schools.com/lib/w3.js"></script>
@@ -105,8 +106,7 @@
 				yourself</h1>
 			<div class="lead g-line-height-2 g-letter-spacing-0_5">
 				<p class="mb-0" style="font-colour: black">
-					<br>
-					<br>
+					<br> <br>
 				</p>
 			</div>
 		</div>
@@ -118,7 +118,6 @@
 				<h2 class="h2 g-color-black g-font-weight-700 mb-4">Have fun with your hobbies</h2>
 				<div class="d-inline-block g-width-70 g-height-2 g-bg-black mb-4"></div>
 			</div>
-
 			<div class="cbp" data-animation="quicksand" data-x-gap="30" data-y-gap="30" ng-init="getAllHobbyKind()"
 				data-media-queries='[{"width": 1500, "cols": 3}, {"width": 1100, "cols": 3}, {"width": 800, "cols": 3}, {"width": 480, "cols": 2}, {"width": 300, "cols": 1}]'>
 				<!-- Cube Portfolio Blocks - Item -->
@@ -168,43 +167,95 @@
 				<!-- Icon Blocks -->
 				<div class="row">
 					<div class="col-lg-6 g-mb-60">
-						<!-- Icon Blocks -->
-						<div class="u-shadow-v21 g-brd-around--md g-brd-gray-light-v4 text-center g-px-30 g-pb-20">
-							<span class="u-icon-v3 g-color-white g-bg-yellow-lineargradient g-pull-50x-up rounded-circle">
-								<i class="icon-weather-001 u-line-icon-pro" style="font-size: 30px;"></i>
-							</span>
-							<h3 class="h4 g-color-black g-mb-10">Sunny 21&#8451;</h3>
-							<form class="g-width-100x--md mx-auto" ng-submit="searchSuburb()">
-								<div class="form-group g-mb-20">
-									<div class="input-group u-shadow-v6 rounded g-mb-15">
-										<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15" type="text"
-											placeholder="Enter postcode or suburb">
-										<div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
-											<button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit">
-												<i class="icon-magnifier g-pos-rel g-top-1"></i>
-											</button>
-										</div>
-									</div>
-									<small class="form-text g-opacity-0_8 g-font-size-default">{{recommend.weather}} today, you may be interested
-										in...</small>
+
+						<div class="u-shadow-v21 g-brd-around--md g-brd-gray-light-v3 text-center g-px-30 g-pb-20">
+							<div class="row">
+								<div class="col-md-4">
+									<div class={{recommend[0].class}}></div>
 								</div>
-							</form>
-							<!-- Categories -->
-							<hr class="g-brd-gray-light-v4 g-my-15">
-							<ul class="list-unstyled g-mb-40">
-								<li class="my-3" ng-repeat="event in recommend.allEvents">
-									<a class="d-flex justify-content-between u-link-v5 g-color-gray-dark-v1 g-parent" href="#">
-										{{event.eventType}}
-										<span
-											class="d-inline-block g-font-size-12 g-min-width-40 g-brd-around g-color-gray-dark-v5 g-brd-gray-light-v3 text-center rounded g-px-10 g-py-3">99</span>
-									</a>
-								</li>
-							</ul>
-							<a class="g-font-weight-600 g-font-size-12 g-text-underline--none--hover text-uppercase" href="#">Read More</a>
+								<!-- <span class="u-icon-v3 g-color-white g-bg-yellow-lineargradient g-pull-50x-up rounded-circle">
+								<i class="icon-weather-001 u-line-icon-pro" style="font-size: 30px;"></i>
+							</span> -->
+								<div class="col-md-8">
+									<form class="g-mt-50" ng-submit="searchSuburb()">
+										<div class="form-group g-mb-20">
+											<div class="input-group u-shadow-v6 rounded g-mb-15">
+												<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15" type="text"
+													name="postOrSub" ng-model="postOrSub" placeholder="Enter postcode or suburb">
+												<div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
+													<button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit" onclick="initMap()">
+														<i class="icon-magnifier g-pos-rel g-top-1"></i>
+													</button>
+												</div>
+											</div>
+											<small class=" g-color-black g-font-size-default">{{recommend[0].weather}} / {{recommend[0].degree}}&#8451;
+												today, you may be interested in...</small>
+										</div>
+									</form>
+								</div>
+								<!-- Categories -->
+								<hr class="g-brd-gray-light-v4 g-my-15">
+								<!-- <div class="d-flex g-mx-10">
+									<span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-blue rounded-circle">
+										<i class="icon-sport-164 u-line-icon-pro"></i>
+									</span>
+									<p class="g-color-black g-mt-10 g-ml-10">Swimming</p>
+								</div>
+
+								<div class="d-flex g-mx-10">
+									<span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-purple rounded-circle">
+										<i class="icon-education-137 u-line-icon-pro"></i>
+									</span>
+									<p class="g-color-black g-mt-10 g-ml-10">Reading</p>
+								</div>
+								<div class="d-flex g-mx-10">
+									<span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-pink rounded-circle">
+										<i class="icon-sport-072 u-line-icon-pro"></i>
+									</span>
+									<p class="g-color-black g-mt-10 g-ml-10">Fitness</p>
+								</div>
+								<div class="d-flex g-mx-10">
+									<span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-lightred rounded-circle">
+										<i class="icon-travel-090 u-line-icon-pro"></i>
+									</span>
+									<p class="g-color-black g-mt-10 g-ml-10">Bicycle</p>
+								</div>
+								<div class="d-flex g-mx-10">
+									<span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-orange rounded-circle">
+										<i class="icon-sport-007 u-line-icon-pro"></i>
+									</span>
+									<p class="g-color-black g-mt-10 g-ml-10">Badminton</p>
+								</div>
+								<div class="d-flex g-mx-10">
+									<span class="u-icon-v2 u-icon-size--sm g-color-white g-bg-yellow rounded-circle">
+										<i class="icon-sport-137 u-line-icon-pro"></i>
+									</span>
+									<p class="g-color-black g-mt-10 g-ml-10">Running or walking</p>
+								</div> -->
+								<!-- 	// icon-education-137 u-line-icon-pro   reading
+								// icon-sport-007 u-line-icon-pro       badminton  
+								// icon-sport-072 u-line-icon-pro       fitness  
+								// icon-travel-090 u-line-icon-pro      bicycle -->
+								<ul class="list-unstyled g-mb-40">
+									<li class="my-3" ng-repeat="event in eventArray">
+										<!-- <a class="d-flex justify-content-between u-link-v5 g-color-gray-dark-v1 g-parent" href="#">
+											<span
+												class="d-inline-block g-font-size-12 g-min-width-40 g-brd-around g-color-gray-dark-v5 g-brd-gray-light-v3 text-center rounded g-px-10 g-py-3">99</span>
+											{{event}}
+										</a> -->
+										<div class="d-flex g-mx-10">
+											<span class="u-icon-v2 u-icon-size--sm g-color-white {{bgColorArray[$index]}} rounded-circle">
+												<i class="{{classArray[$index]}} u-line-icon-pro"></i>
+											</span>
+											<p class="g-color-black g-mt-10 g-ml-10">{{event}}</p>
+										</div>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 					<div class="col-lg-6 g-mb-60">
-						<div id="palces" style="display: none">{{recommend.allAddress}}</div>
+						<div id="places" style="display: none">{{recommend[0].allAddress}}</div>
 						<div class="panel panel-default">
 							<div class="panel-heading"></div>
 							<div class="panel-body">
@@ -259,13 +310,26 @@
 	<script>
 		w3.includeHTML();
 		// set locations to js variable
-		window.onload = initMap;
+		window.onload = init;
+		
 		var resultsMap;
+		var addresses;
+		var geocoder;
+		var popupWindow;
+		
+		/****************************
+		 * initialize the variables
+		 */
+		function init() {
+			initMap();
+		}
+
 		function initMap() {
-			//addresses = document.getElementById('places').innerText;
+			addresses = document.getElementById('places').innerText;
+			console.log("address:....."+addresses);
 			resultsMap = new google.maps.Map(document
 					.getElementById('gmap-basic-marker'), {
-				zoom : 13,
+				zoom : 12,
 				center : {
 					lat : -37.8136,
 					lng : 144.9631
@@ -273,11 +337,49 @@
 			});
 			findCurrentLocation();
 			geocoder = new google.maps.Geocoder();
-			/* var addressesArray = addresses.split("^");
+			var addressesArray = addresses.split("^");
 			for (i = 0; i < addressesArray.length; i++) {
-				count=1;
 				geocodeAddress(addressesArray[i]);
-			} */
+			}
+		}
+
+		// potential issue: some marker may be rendered for more than once, still don't know why
+		function geocodeAddress(address) {
+			console.log("geo address: " + address);
+			var locationArray = address.split("");
+			popupWindow = new google.maps.InfoWindow();
+			geocoder
+					.geocode(
+							{
+								'address' : locationArray[1]//address
+							},
+							function(results, status) {
+								if (status === 'OK') {
+									// locate the marker in center
+									//resultsMap.setCenter(results[0].geometry.location);
+									var marker = new google.maps.Marker({
+										map : resultsMap,
+										position : results[0].geometry.location,
+										icon : "img/indicator.png"
+									//animation : google.maps.Animation.DROP
+									});
+									google.maps.event.addListener(marker, 'click', (function(marker) {
+										return function() {
+											popupWindow.setContent(locationArray[1]);
+											popupWindow.open(resultsMap, marker);
+										}
+									})(marker, i)); 
+								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+									setTimeout(function() {
+										console.log(count++);
+										geocodeAddress(address);
+									}, 1000);
+								} else {
+									console
+											.log("Geocode was not successful for the following reason:"
+													+ status);
+								}
+							});
 		}
 
 		/*****************************************************

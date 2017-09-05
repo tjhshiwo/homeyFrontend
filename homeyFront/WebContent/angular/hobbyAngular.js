@@ -1,6 +1,8 @@
 /**
  * 
  */
+ var prefixUrl = "http://localhost:8080/homeyBack/";
+//var prefixUrl = "http://118.139.11.247:8080/homeyBack/";
 var app = angular.module("myApp", []).factory("hobbyService", function() {
 	var hobbyKind = {};
 	return {
@@ -29,7 +31,7 @@ app.controller("myCtrl", function($scope, $http) {
 });
 
 app.controller("getHobbiesCtrl", function($scope, $http, $window) {
-	
+
 	/***************************************************************************
 	 * Get all hobby kinds
 	 */
@@ -51,7 +53,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 		console.log($scope.hobbykind);
 		// hobbyService.setHobbyKind($scope.hobbykind);
 		sessionStorage.setItem('hobbyKind', kind);
-		$window.location.href = "hobby_detail.html";
+		$window.location.href = "hobby_detail2.html";
 	}
 
 	/***************************************************************************
@@ -60,6 +62,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 	$scope.sendLocation = function() {
 		var laitude;
 		var longitude;
+		console.log("ssssss");
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition);
 		} else {
@@ -69,7 +72,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 			laitude = position.coords.latitude
 			longitude = position.coords.longitude;
 			// search weather info, including events, addresses
-			// $scope.searchWeather(laitude, longitude);
+			$scope.searchWeather(laitude, longitude);
 		}
 	};
 
@@ -77,9 +80,11 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 	 * Search weather
 	 */
 	$scope.searchWeather = function(laitude, longitude) {
+		console.log("lai:  " + laitude);
+		console.log("lon:  " + longitude);
 		$http({
 			method : 'GET',
-			url : 'http://localhost:8080/homeyBack/weatherServlet',
+			url : prefixUrl + 'lonLatServlet',
 			params : {
 				lat : laitude,
 				lon : longitude
@@ -87,6 +92,45 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 		}).then(function successCallback(response) {
 			// if success
 			$scope.recommend = response.data;
+			var eventTypes = $scope.recommend[0].allEvents;
+			var eventClass = $scope.recommend[0].allEventsClass;
+			var eventBgColor = $scope.recommend[0].allEventsBgColor;
+			// assemble array
+			var eventArray = eventTypes.split("^");
+			var classArray = eventClass.split("^");
+			var bgColorArray = eventBgColor.split("^");
+			// assign value to scope
+			$scope.eventArray = eventArray;
+			$scope.classArray = classArray;
+			$scope.bgColorArray = bgColorArray;
+		}, function errorCallback(response) {
+			// if error TODO
+			alert("Failed to connect to server");
+		});
+	};
+	
+	/***************************************************************************
+	 * Search suburb
+	 */
+	$scope.searchSuburb = function() {
+		$http({
+			method : 'GET',
+			url : prefixUrl + 'postOrSubServlet',
+			params : {
+				postOrSub : $scope.postOrSub
+			}
+		}).then(function successCallback(response) {
+			// if success
+			$scope.recommend = response.data;
+			var eventTypes = $scope.recommend[0].allEvents;
+			var eventClass = $scope.recommend[0].allEventsClass;
+			var eventBgColor = $scope.recommend[0].allEventsBgColor;
+			var eventArray = eventTypes.split("^");
+			var classArray = eventClass.split("^");
+			var bgColorArray = eventBgColor.split("^");
+			$scope.eventArray = eventArray;
+			$scope.classArray = classArray;
+			$scope.bgColorArray = bgColorArray;
 		}, function errorCallback(response) {
 			// if error TODO
 			alert("Failed to connect to server");

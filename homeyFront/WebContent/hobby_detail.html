@@ -148,7 +148,8 @@
 									//resultsMap.setCenter(results[0].geometry.location);
 									var marker = new google.maps.Marker({
 										map : resultsMap,
-										position : results[0].geometry.location
+										position : results[0].geometry.location,
+										icon : "img/indicator.png"
 									//animation : google.maps.Animation.DROP
 									});
 									/* google.maps.event.addListener(marker, 'click', (function(marker) {
@@ -159,7 +160,7 @@
 									})(marker, i)); */
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
 									setTimeout(function() {
-										console.log(count++);
+										//console.log(count++);
 										geocodeAddress(address);
 									}, 1000);
 								} else {

@@ -108,7 +108,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 			initMap($scope.recommend[0].allAddress);
 		}, function errorCallback(response) {
 			// if error TODO
-			alert("Failed to search weather and activities when initializing the page");
+			alert("Sorry, there is no appropiate locations found in the area.");
 		});
 	};
 	
@@ -116,6 +116,9 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 	 * Search suburb
 	 */
 	$scope.searchSuburb = function() {
+		if($scope.postOrSub == ""){
+			alert();
+		}
 		$http({
 			method : 'GET',
 			url : prefixUrl + 'postOrSubServlet',
@@ -137,12 +140,12 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 			initMap($scope.recommend[0].allAddress);
 		}, function errorCallback(response) {
 			// if error TODO
-			alert("Failed to search suburb");
+			alert("Sorry, there is no appropiate locations found in the area.");
 		});
 	};
 	
 	/***
-	 * 
+	 * In family violence page, search institutions available
 	 */
 	$scope.searchSuburb4Institution = function(){
 		$http({
@@ -154,7 +157,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 		}).then(function successCallback(response) {
 			// if success
 			$scope.famVioPlaces = response.data;
-			initMap();
+			initMap($scope.famVioPlaces.allAddress);
 		}, function errorCallback(response) {
 			// if error TODO
 			alert("Sorry, there is no institutions found in the area.");

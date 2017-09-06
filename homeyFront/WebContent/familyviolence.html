@@ -155,7 +155,7 @@
 		</header>
 		<p class="g-font-size-16">Homey provides key information of some institutions which can help you in this situation.</p>
 		<form class="row" ng-submit="searchSuburb4Institution()">
-			<div id="places" style="display: none">{{famVioPlaces.allAddress}}</div>
+			<!-- <div id="places" style="display: none">{{famVioPlaces.allAddress}}</div> -->
 			<div class="row col-md-7">
 				<div class="col-md-4">
 					<!-- Icon Blocks -->
@@ -275,10 +275,11 @@
 	<script>
 		w3.includeHTML();
 
-		window.onload = initMap;
+		//window.onload = initMap;
 		var resultsMap;
-		function initMap() {
-			addresses = document.getElementById('places').innerText;
+		var addresses = "";
+		function initMap(addresses) {
+			//addresses = document.getElementById('places').innerText;
 			resultsMap = new google.maps.Map(document
 					.getElementById('gmap-basic-marker'), {
 				zoom : 11,
@@ -303,7 +304,7 @@
 			geocoder
 					.geocode(
 							{
-								'address' : address
+								'address' : locationArray[1]
 							},
 							function(results, status) {
 								if (status === 'OK') {
@@ -322,11 +323,13 @@
 													'click',
 													(function(marker) {
 														return function() {
-															var content = locationArray[0]
-																	+ "<br>"
-																	+ locationArray[1];
-																	//+ "<br>"
-																	//+ locationArray[2]
+															var content = "<strong>Name: </strong>"+locationArray[0]
+																	+ "<br><strong>Address: </strong>"
+																	+ locationArray[1]
+																	+ "<br><strong>Phone: </strong>"
+																	+ locationArray[3]+ "<br><strong>Opening hour: </strong>"
+																	+ locationArray[4]+ "<br><strong>Tram routes: </strong>"
+																	+ locationArray[5];
 															popupWindow
 																	.setContent(content);
 															popupWindow.open(

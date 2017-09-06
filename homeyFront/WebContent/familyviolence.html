@@ -40,6 +40,10 @@
 
 <!-- W3C embed other html -->
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+<!-- Angular JS  -->
+<script type="text/javascript" src="js/angular-2.js"></script>
+<script type="text/javascript" src="angular/hobbyAngular.js"></script>
 </head>
 
 <body>
@@ -99,13 +103,14 @@
 						<span class="g-font-size-50 g-font-weight-600">33%</span>
 						of homeless people <br>suffer from family violence
 					</h3>
-					<span class="d-block g-color-black-opacity-0_8 g-font-size-16 mb-5">Data source.</span>
-					<a class="js-fancybox u-link-v5 g-color-black" href="https://www.youtube.com/watch?v=KhzGSHNhnbI" title="Single Image">
+					<span class="d-block g-color-black-opacity-0_8 g-font-size-16 mb-5">- Homelessness Australia</span>
+					<a class="js-fancybox u-link-v5 g-color-black" href="https://www.youtube.com/watch?v=uocoMbCg9N8" title="Single Image">
 						<span
 							class="align-middle u-icon-v3 u-block-hover--scale g-bg-white g-color-black g-color-primary--hover g-rounded-50x g-cursor-pointer mr-2">
 							<i class="g-font-size-18 g-pos-rel g-left-2 fa fa-play"></i>
 						</span>
-						1:41 minutes
+						<!-- 1:41 minutes  -->
+						In Iteration 3
 					</a>
 				</div>
 			</div>
@@ -144,12 +149,13 @@
 		</div>
 	</section>
 
-	<section class="container ">
+	<section class="container" ng-app="myApp" ng-controller="getHobbiesCtrl">
 		<header class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
 			<h2 class="h4 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600 text-uppercase">Ask Homey for help</h2>
 		</header>
 		<p class="g-font-size-16">Homey provides key information of some institutions which can help you in this situation.</p>
-		<form class="row" ng-submit="searchSuburb()">
+		<form class="row" ng-submit="searchSuburb4Institution()">
+			<div id="places" style="display: none">{{famVioPlaces.allAddress}}</div>
 			<div class="row col-md-7">
 				<div class="col-md-4">
 					<!-- Icon Blocks -->
@@ -198,7 +204,7 @@
 			<div class="col-md-5">
 				<div class="input-group u-shadow-v6 rounded g-mb-20 u-divider-right">
 					<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15" type="text"
-						placeholder="Enter postcode or suburb">
+						placeholder="Enter postcode or suburb" ng-model="postOrSub" name="postOrSub">
 					<div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
 						<button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit">
 							<i class="icon-magnifier g-pos-rel g-top-1"></i>
@@ -208,7 +214,7 @@
 			</div>
 		</form>
 
-		<div class="panel panel-default">
+		<div class="panel panel-default g-mb-40">
 			<div class="panel-heading"></div>
 			<div class="panel-body">
 				<div id="gmap-basic-marker" style="height: 500px; width: 100%;"></div>
@@ -223,7 +229,7 @@
 
 	<!-- Most Quality Solution -->
 
-	<section class="g-brd-top g-brd-bottom g-brd-gray-light-v4 g-pt-50">
+<!-- 	<section class="g-brd-top g-brd-bottom g-brd-gray-light-v4 g-pt-50">
 		<div class="container">
 			<div class="row text-center text-uppercase">
 				<div class="col-lg-3 col-sm-6 g-brd-right g-brd-gray-light-v4 g-mb-50">
@@ -247,8 +253,9 @@
 				</div>
 			</div>
 		</div>
-	</section>
-	<!-- Replace the value of the key parameter with your own API key. --> 
+	</section> -->
+
+	<!-- <iframe width="420" height="315" src="https://www.youtube.com/embed/XGSy3_Czz8k"> </iframe> --> <!-- Replace the value of the key parameter with your own API key. -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
 
 	<div w3-include-html="layout/footer.html"></div>
@@ -262,6 +269,120 @@
 		<i class="hs-icon hs-icon-arrow-top"></i>
 	</a> </main>
 
+
+
+	<!-- JS Plugins Init. -->
+	<script>
+		w3.includeHTML();
+
+		window.onload = initMap;
+		var resultsMap;
+		function initMap() {
+			addresses = document.getElementById('places').innerText;
+			resultsMap = new google.maps.Map(document
+					.getElementById('gmap-basic-marker'), {
+				zoom : 11,
+				center : {
+					lat : -37.8136,
+					lng : 144.9631
+				}
+			});
+			findCurrentLocation();
+			geocoder = new google.maps.Geocoder();
+			var addressesArray = addresses.split("^");
+			for (i = 0; i < addressesArray.length; i++) {
+				geocodeAddress(addressesArray[i]);
+			}
+		};
+
+		// potential issue: some marker may be rendered for more than once, still don't know why
+		function geocodeAddress(address) {
+			console.log("geo address: " + address);
+			var locationArray = address.split("=");
+			popupWindow = new google.maps.InfoWindow();
+			geocoder
+					.geocode(
+							{
+								'address' : address
+							},
+							function(results, status) {
+								if (status === 'OK') {
+									// locate the marker in center
+									//resultsMap.setCenter(results[0].geometry.location);
+									var marker = new google.maps.Marker(
+											{
+												map : resultsMap,
+												position : results[0].geometry.location,
+												icon: "img/map/"+locationArray[2]
+											//animation : google.maps.Animation.DROP
+											});
+									google.maps.event
+											.addListener(
+													marker,
+													'click',
+													(function(marker) {
+														return function() {
+															var content = locationArray[0]
+																	+ "<br>"
+																	+ locationArray[1];
+																	//+ "<br>"
+																	//+ locationArray[2]
+															popupWindow
+																	.setContent(content);
+															popupWindow.open(
+																	resultsMap,
+																	marker);
+														}
+													})(marker, i));
+								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+									setTimeout(function() {
+										//console.log(count++);
+										geocodeAddress(address);
+									}, 1000);
+								} else {
+									console
+											.log("Geocode was not successful for the following reason:"
+													+ status);
+								}
+							});
+		}
+
+		/*****************************************************
+		 * find current location
+		 */
+		function findCurrentLocation() {
+			var infoWindow = new google.maps.InfoWindow({
+				map : resultsMap
+			});
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = {
+						lat : position.coords.latitude,
+						lng : position.coords.longitude
+					};
+					// don't need the inforWindow for now
+					// infoWindow.setPosition(pos);
+					// infoWindow.setContent('You');
+					resultsMap.setCenter(pos);
+					var Marker = new google.maps.Marker({
+						map : resultsMap,
+						animation : google.maps.Animation.DROP,
+						position : pos,
+						icon : "img/indicator.png"
+					});
+				}, function() {
+					handleLocationError(true, infoWindow, resultsMap
+							.getCenter());
+				});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow, resultsMap.getCenter());
+			}
+		};
+
+		
+	</script>
 	<!-- JS Global Compulsory -->
 	<script src="unify/vendor/jquery/jquery.min.js"></script>
 	<script src="unify/vendor/jquery-migrate/jquery-migrate.min.js"></script>
@@ -288,78 +409,53 @@
 
 	<!-- JS Customization -->
 	<script src="unify/js/custom.js"></script>
-
-	<!-- JS Plugins Init. -->
 	<script>
-		w3.includeHTML();
+	$(document).on(
+			'ready',
+			function() {
+				// initialization of carousel
+				$.HSCore.components.HSCarousel.init('.js-carousel');
 
-		window.onload = initMap;
-		var resultsMap;
-		function initMap() {
-			//addresses = document.getElementById('places').innerText;
-			resultsMap = new google.maps.Map(document
-					.getElementById('gmap-basic-marker'), {
-				zoom : 13,
-				center : {
-					lat : -37.8136,
-					lng : 144.9631
-				}
-			});
-			// findCurrentLocation();
-			geocoder = new google.maps.Geocoder();
-			/* var addressesArray = addresses.split("^");
-			for (i = 0; i < addressesArray.length; i++) {
-				count=1;
-				geocodeAddress(addressesArray[i]);
-			} */
-		};
-
-		$(document).on(
-				'ready',
-				function() {
-					// initialization of carousel
-					$.HSCore.components.HSCarousel.init('.js-carousel');
-
-					// initialization of tabs
-					$.HSCore.components.HSTabs.init('[role="tablist"]');
-
-					// initialization of popups
-					$.HSCore.components.HSPopup.init('.js-fancybox');
-
-					// initialization of go to
-					$.HSCore.components.HSGoTo.init('.js-go-to');
-
-					// initialization of text animation (typing)
-					$(".u-text-animation.u-text-animation--typing")
-							.typed(
-									{
-										strings : [ "an awesome template",
-												"perfect template",
-												"just like a boss" ],
-										typeSpeed : 60,
-										loop : true,
-										backDelay : 1500
-									});
-				});
-
-		$(window).on('load', function() {
-			// initialization of header
-			$.HSCore.components.HSHeader.init($('#js-header'));
-			$.HSCore.helpers.HSHamburgers.init('.hamburger');
-
-			// initialization of HSMegaMenu component
-			$('.js-mega-menu').HSMegaMenu({
-				event : 'hover',
-				pageContainer : $('.container'),
-				breakpoint : 991
-			});
-		});
-
-		$(window).on('resize', function() {
-			setTimeout(function() {
+				// initialization of tabs
 				$.HSCore.components.HSTabs.init('[role="tablist"]');
-			}, 200);
+
+				// initialization of popups
+				$.HSCore.components.HSPopup.init('.js-fancybox');
+
+				// initialization of go to
+				$.HSCore.components.HSGoTo.init('.js-go-to');
+
+				// initialization of text animation (typing)
+				$(".u-text-animation.u-text-animation--typing")
+						.typed(
+								{
+									strings : [ "an awesome template",
+											"perfect template",
+											"just like a boss" ],
+									typeSpeed : 60,
+									loop : true,
+									backDelay : 1500
+								});
+			});
+
+	$(window).on('load', function() {
+		// initialization of header
+		$.HSCore.components.HSHeader.init($('#js-header'));
+		$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+		// initialization of HSMegaMenu component
+		$('.js-mega-menu').HSMegaMenu({
+			event : 'hover',
+			pageContainer : $('.container'),
+			breakpoint : 991
 		});
+	});
+
+	$(window).on('resize', function() {
+		setTimeout(function() {
+			$.HSCore.components.HSTabs.init('[role="tablist"]');
+		}, 200);
+	});
 	</script>
 </body>
 </html>

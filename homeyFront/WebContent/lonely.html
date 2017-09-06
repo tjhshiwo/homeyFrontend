@@ -124,7 +124,7 @@
 				<div id="shortcode" class="cbp-item identity design" ng-repeat="kind in allHobbyKind">
 					<div class="u-block-hover g-parent">
 						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='images/hobbyPotfolio/{{kind.image}}' ng-click="getHobbyDetail(kind.id)">
+							ng-src='img/hobbyPotfolio/{{kind.image}}' ng-click="getHobbyDetail(kind.id)">
 						<div
 							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
 							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
@@ -136,7 +136,7 @@
 								</li>
 								<li class="list-inline-item">
 									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="images/hobbyPotfolio/{{kind.image}}">
+										href="img/hobbyPotfolio/{{kind.image}}">
 										<i class="icon-communication-017 u-line-icon-pro"></i>
 									</a>
 								</li>
@@ -156,7 +156,7 @@
 	</section>
 	<!-- End Cube Portfolio Blocks -->
 
-	<section class="">
+	<section class="g-bg-white">
 		<div class="container g-py-50">
 			<div class="text-center g-mb-40">
 				<h2 class="h2 g-color-black g-font-weight-700 mb-4">Activities for you</h2>
@@ -168,7 +168,7 @@
 				<div class="row">
 					<div class="col-lg-6 g-mb-60">
 
-						<div class="u-shadow-v21 g-brd-around--md g-brd-gray-light-v3 text-center g-px-30 g-pb-20">
+						<div class="u-shadow-v21 g-bg-gray-light-v5 g-brd-around--md g-brd-gray-light-v3 text-center g-px-30 g-pb-20">
 							<div class="row">
 								<div class="col-md-4">
 									<div class={{recommend[0].class}}></div>
@@ -183,7 +183,7 @@
 												<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15" type="text"
 													name="postOrSub" ng-model="postOrSub" placeholder="Enter postcode or suburb">
 												<div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
-													<button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit" onclick="initMap()">
+													<button class="btn u-btn-primary g-font-size-16 g-py-15 g-px-20" type="submit" onclick="searchSuburb()">
 														<i class="icon-magnifier g-pos-rel g-top-1"></i>
 													</button>
 												</div>
@@ -236,7 +236,7 @@
 								// icon-sport-007 u-line-icon-pro       badminton  
 								// icon-sport-072 u-line-icon-pro       fitness  
 								// icon-travel-090 u-line-icon-pro      bicycle -->
-								<ul class="list-unstyled g-mb-40">
+								<ul class="list-unstyled g-mt-15" style="padding-left:170px;">
 									<li class="my-3" ng-repeat="event in eventArray">
 										<!-- <a class="d-flex justify-content-between u-link-v5 g-color-gray-dark-v1 g-parent" href="#">
 											<span
@@ -255,7 +255,7 @@
 						</div>
 					</div>
 					<div class="col-lg-6 g-mb-60">
-						<div id="places" style="display: none">{{recommend[0].allAddress}}</div>
+						<!-- <div id="places" style="display: none">{{recommend[0].allAddress}}</div> -->
 						<div class="panel panel-default">
 							<div class="panel-heading"></div>
 							<div class="panel-body">
@@ -310,7 +310,7 @@
 	<script>
 		w3.includeHTML();
 		// set locations to js variable
-		window.onload = init;
+		//window.onload = init;
 		
 		var resultsMap;
 		var addresses;
@@ -321,15 +321,19 @@
 		 * initialize the variables
 		 */
 		function init() {
-			initMap();
+			//initMap();
 		}
-
-		function initMap() {
-			addresses = document.getElementById('places').innerText;
+	
+		function searchSuburb(){
+			//angular.element(document.getElementById('places')).scope().searchSuburb();
+		}
+		
+		function initMap(addresses) {
+			//addresses = document.getElementById('places').innerText;
 			console.log("address:....."+addresses);
 			resultsMap = new google.maps.Map(document
 					.getElementById('gmap-basic-marker'), {
-				zoom : 12,
+				zoom : 11,
 				center : {
 					lat : -37.8136,
 					lng : 144.9631
@@ -337,6 +341,7 @@
 			});
 			findCurrentLocation();
 			geocoder = new google.maps.Geocoder();
+			
 			var addressesArray = addresses.split("^");
 			for (i = 0; i < addressesArray.length; i++) {
 				geocodeAddress(addressesArray[i]);
@@ -346,7 +351,7 @@
 		// potential issue: some marker may be rendered for more than once, still don't know why
 		function geocodeAddress(address) {
 			console.log("geo address: " + address);
-			var locationArray = address.split("");
+			var locationArray = address.split("=");
 			popupWindow = new google.maps.InfoWindow();
 			geocoder
 					.geocode(
@@ -356,22 +361,22 @@
 							function(results, status) {
 								if (status === 'OK') {
 									// locate the marker in center
-									//resultsMap.setCenter(results[0].geometry.location);
+									// resultsMap.setCenter(results[0].geometry.location);
 									var marker = new google.maps.Marker({
 										map : resultsMap,
 										position : results[0].geometry.location,
-										icon : "img/indicator.png"
-									//animation : google.maps.Animation.DROP
+										icon: "img/map/"+locationArray[3],
+										animation : google.maps.Animation.DROP
 									});
 									google.maps.event.addListener(marker, 'click', (function(marker) {
 										return function() {
-											popupWindow.setContent(locationArray[1]);
+											var content = locationArray[0]+"<br>"+ locationArray[1]+"<br>"+locationArray[2];
+											popupWindow.setContent(content);
 											popupWindow.open(resultsMap, marker);
 										}
 									})(marker, i)); 
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
 									setTimeout(function() {
-										console.log(count++);
 										geocodeAddress(address);
 									}, 1000);
 								} else {

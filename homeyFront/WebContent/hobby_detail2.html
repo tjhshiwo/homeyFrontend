@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <!-- Title -->
-<title>Join us</title>
+<title>Services 2 | Unify - Responsive Website Template</title>
 
 <!-- Required Meta Tags Always Come First -->
 <meta charset="utf-8">
@@ -14,7 +14,6 @@
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Caveat+Brush|Courgette|Merienda+One" rel="stylesheet">
-<link href="http://fonts.googleapis.com/css?family=Dosis:400,500,700" rel="stylesheet" type="text/css">
 
 <!-- CSS Global Compulsory -->
 <link rel="stylesheet" href="unify/vendor/bootstrap/bootstrap.min.css">
@@ -22,9 +21,8 @@
 <!-- CSS Implementing Plugins -->
 <link rel="stylesheet" href="unify/vendor/icon-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="unify/vendor/icon-line-pro/style.css">
-<link rel="stylesheet" href="unify/vendor/icon-hs/style.css">
 <link rel="stylesheet" href="unify/vendor/icon-line/css/simple-line-icons.css">
-<link rel="stylesheet" href="unify/vendor/icon-etlinefont/style.css">
+<link rel="stylesheet" href="unify/vendor/icon-hs/style.css">
 <link rel="stylesheet" href="unify/vendor/animate.css">
 <link rel="stylesheet" href="unify/vendor/dzsparallaxer/dzsparallaxer.css">
 <link rel="stylesheet" href="unify/vendor/dzsparallaxer/dzsscroller/scroller.css">
@@ -39,13 +37,12 @@
 <!-- CSS Customization -->
 <link rel="stylesheet" href="unify/css/custom.css">
 
-<!-- W3C embed other html -->
-<script src="https://www.w3schools.com/lib/w3.js"></script>
-
-
 <!-- Angular JS  -->
 <script type="text/javascript" src="js/angular-2.js"></script>
 <script type="text/javascript" src="angular/hobbyAngular.js"></script>
+
+<!-- W3C embed other html -->
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="getHobbyDetailCtrl">
@@ -74,7 +71,7 @@
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
 						<ul class="navbar-nav ml-auto text-uppercase g-font-weight-600 u-main-nav-v8 u-sub-menu-v1">
-							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+							<li class="nav-item  g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
 								<a href="familyviolence.html" class="nav-link" id="nav-link-1">Family violence</a>
 							</li>
 							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
@@ -83,7 +80,7 @@
 							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
 								<a href="coming-soon.html" class="nav-link">Financial issue</a>
 							</li>
-							<li class="nav-item active g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+							<li class="nav-item  active g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
 								<a href="lonely.html" class="nav-link">Loneliness relief</a>
 							</li>
 						</ul>
@@ -92,21 +89,28 @@
 				</div>
 			</nav>
 		</div>
-	</header> <!-- End Header --> <!-- Page Title -->
-	<section style="margin-top: 100px;" ng-init="getHobbyDesc()">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7 col-sm-12">
-					<img ng-src='images/hobbyHome/{{hobbyDesc.image}}' class="homepageImg" style="height: 100%; width: 100%" alt="">
+	</header> <!-- End Header --> <!-- Section -->
+	<section class="container g-pt-100 g-pb-40" ng-init="getHobbyDesc()">
+		<div class="row">
+			<div class="col-lg-6 g-mb-60">
+				<div class="mb-4">
+					<h2 class="h3 text-uppercase mb-3">{{hobbyDesc.title}}</h2>
+					<div class="g-width-60 g-height-1 g-bg-black"></div>
 				</div>
-				<div class="col-md-5 col-sm-12">
-					<h3 style="text-align: center">{{hobbyDesc.title}}</h3>
-					<p>{{hobbyDesc.description}}</p>
+				<div class="mb-5">
+					<p class="h5 g-font-weight-200 g-font-size-21">{{hobbyDesc.description}}.</p>
 				</div>
+			</div>
+
+			<div class="col-lg-6 g-mb-60">
+				<img class="img-fluid" ng-src='img/hobbyPotfolio/{{hobbyDesc.image}}' alt="Image Description">
 			</div>
 		</div>
 	</section>
-	<section style="margin-top: -120px;">
+	<!-- End Section -->
+
+
+	<section class="g-mx-15 g-mb-20">
 		<div class="container" ng-init="getHobbyFromServer()">
 			<div id="angularvalue" style="display: none">{{hobbyDetail.allAddress}}</div>
 			<div class="row">
@@ -124,10 +128,7 @@
 		</div>
 	</section>
 
-
-	<!-- Replace the value of the key parameter with your own API key. --> <script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
-
+	<!-- Footer -->
 	<div w3-include-html="layout/footer.html"></div>
 
 	<a class="js-go-to u-go-to-v1" href="#" data-type="fixed"
@@ -146,6 +147,7 @@
 	<script src="unify/vendor/bootstrap/bootstrap.min.js"></script>
 
 	<!-- JS Implementing Plugins -->
+	<script src="unify/vendor/appear.js"></script>
 	<script src="unify/vendor/hs-megamenu/src/hs.megamenu.js"></script>
 	<script src="unify/vendor/dzsparallaxer/dzsparallaxer.js"></script>
 	<script src="unify/vendor/dzsparallaxer/dzsscroller/scroller.js"></script>
@@ -157,6 +159,7 @@
 	<script src="unify/js/components/hs.header.js"></script>
 	<script src="unify/js/helpers/hs.hamburgers.js"></script>
 	<script src="unify/js/components/hs.tabs.js"></script>
+	<script src="unify/js/components/hs.counter.js"></script>
 	<script src="unify/js/components/hs.cubeportfolio.js"></script>
 	<script src="unify/js/components/hs.go-to.js"></script>
 
@@ -164,16 +167,26 @@
 	<script src="unify/js/custom.js"></script>
 
 	<!-- JS Plugins Init. -->
+	<!-- Replace the value of the key parameter with your own API key. -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
+
 	<script>
 		w3.includeHTML();
+
 		// set locations to js variable
 		window.onload = initMap;
+		var addresses;
 		var resultsMap;
+		var geocoder;
+		var popupWindow;
+
+		var count = 0;
+
 		function initMap() {
-			//addresses = document.getElementById('places').innerText;
+			addresses = document.getElementById('angularvalue').innerText;
 			resultsMap = new google.maps.Map(document
 					.getElementById('gmap-basic-marker'), {
-				zoom : 13,
+				zoom : 10,
 				center : {
 					lat : -37.8136,
 					lng : 144.9631
@@ -181,11 +194,47 @@
 			});
 			findCurrentLocation();
 			geocoder = new google.maps.Geocoder();
-			/* var addressesArray = addresses.split("^");
+			var addressesArray = addresses.split("^");
 			for (i = 0; i < addressesArray.length; i++) {
-				count=1;
 				geocodeAddress(addressesArray[i]);
-			} */
+			}
+		}
+
+		// potential issue: some marker may be rendered for more than once, still don't know why
+		function geocodeAddress(address) {
+			console.log("geo address: " + address);
+			popupWindow = new google.maps.InfoWindow();
+			geocoder
+					.geocode(
+							{
+								'address' : address
+							},
+							function(results, status) {
+								if (status === 'OK') {
+									// locate the marker in center
+									//resultsMap.setCenter(results[0].geometry.location);
+									var marker = new google.maps.Marker({
+										map : resultsMap,
+										position : results[0].geometry.location
+									//animation : google.maps.Animation.DROP
+									});
+									/* google.maps.event.addListener(marker, 'click', (function(marker) {
+										return function() {
+											popupWindow.setContent(address);
+											popupWindow.open(resultsMap, marker);
+										}
+									})(marker, i)); */
+								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+									setTimeout(function() {
+										//console.log(count++);
+										geocodeAddress(address);
+									}, 1000);
+								} else {
+									console
+											.log("Geocode was not successful for the following reason:"
+													+ status);
+								}
+							});
 		}
 
 		/*****************************************************
@@ -220,15 +269,21 @@
 				// Browser doesn't support Geolocation
 				handleLocationError(false, infoWindow, resultsMap.getCenter());
 			}
+
 		}
+		$(document).on(
+				'ready',
+				function() {
+					// initialization of go to
+					$.HSCore.components.HSGoTo.init('.js-go-to');
 
-		$(document).on('ready', function() {
-			// initialization of go to
-			$.HSCore.components.HSGoTo.init('.js-go-to');
+					// initialization of tabs
+					$.HSCore.components.HSTabs.init('[role="tablist"]');
 
-			// initialization of tabs
-			$.HSCore.components.HSTabs.init('[role="tablist"]');
-		});
+					// initialization of counters
+					var counters = $.HSCore.components.HSCounter
+							.init('[class*="js-counter"]');
+				});
 
 		$(window).on('load', function() {
 			// initialization of header

@@ -1,8 +1,9 @@
 /**
  * 
  */
- var prefixUrl = "http://localhost:8080/homeyBack/";
-//var prefixUrl = "http://118.139.11.247:8080/homeyBack/";
+// var prefixUrl = "http://localhost:8080/homeyBack/";
+var prefixUrl = "http://118.139.11.247:8080/homeyBack/";
+
 var app = angular.module("myApp", []).factory("hobbyService", function() {
 	var hobbyKind = {};
 	return {
@@ -19,7 +20,7 @@ app.controller("myCtrl", function($scope, $http) {
 	$scope.getDataFromServer = function() {
 		$http({
 			method : 'GET',
-			url : 'http://localhost:8080/homeyBack/javaAngularJS'
+			url : prefixUrl + 'javaAngularJS'
 		}).then(function successCallback(response) {
 			// if success TODO
 			alert(response.data);
@@ -37,7 +38,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 	 */
 	$scope.getAllHobbyKind = function() {
 		$http({
-			url : 'http://localhost:8080/homeyBack/getAllHobbyServlet',
+			url : prefixUrl + 'getAllHobbyServlet',
 			method : "GET"
 		}).then(function successCallback(response) {
 			$scope.allHobbyKind = response.data;
@@ -103,9 +104,11 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 			$scope.eventArray = eventArray;
 			$scope.classArray = classArray;
 			$scope.bgColorArray = bgColorArray;
+			
+			initMap($scope.recommend[0].allAddress);
 		}, function errorCallback(response) {
 			// if error TODO
-			alert("Failed to connect to server");
+			alert("Failed to search weather and activities when initializing the page");
 		});
 	};
 	
@@ -131,11 +134,32 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 			$scope.eventArray = eventArray;
 			$scope.classArray = classArray;
 			$scope.bgColorArray = bgColorArray;
+			initMap($scope.recommend[0].allAddress);
 		}, function errorCallback(response) {
 			// if error TODO
-			alert("Failed to connect to server");
+			alert("Failed to search suburb");
 		});
 	};
+	
+	/***
+	 * 
+	 */
+	$scope.searchSuburb4Institution = function(){
+		$http({
+			method : 'GET',
+			url : prefixUrl + 'postOrSubViolenceServlet',
+			params : {
+				subOrPost : $scope.postOrSub
+			}
+		}).then(function successCallback(response) {
+			// if success
+			$scope.famVioPlaces = response.data;
+			initMap();
+		}, function errorCallback(response) {
+			// if error TODO
+			alert("Sorry, there is no institutions found in the area.");
+		});
+	}
 
 });
 
@@ -145,7 +169,7 @@ app.controller("getHobbyDetailCtrl", function($scope, $http) {
 	$scope.getHobbyDesc = function() {
 		$http({
 			// TODO get hobby description
-			url : 'http://localhost:8080/homeyBack/getHobbyDetailServlet',
+			url : prefixUrl + 'getHobbyDetailServlet',
 			// url:
 			// 'http://homeycloudback.azurewebsites.net/homeyBack/getHobbyDetailServlet',
 			method : "GET",
@@ -155,15 +179,11 @@ app.controller("getHobbyDetailCtrl", function($scope, $http) {
 		}).then(function successCallback(response) {
 			$scope.hobbyDesc = response.data;
 		}, function errorCallback(response) {
-			// alert("can't get hobby description");
 		});
 	}
 	$scope.getHobbyFromServer = function() {
 		$http({
-			// http://118.139.20.206:8080/homey/javaAngularJS
-			url : 'http://localhost:8080/homeyBack/javaAngularJS',
-			// url:
-			// 'http://homeycloudback.azurewebsites.net/homeyBack/javaAngularJS',
+			url : prefixUrl + 'javaAngularJS',
 			method : "GET",
 			params : {
 				hobbyKind : $scope.hobbyKind

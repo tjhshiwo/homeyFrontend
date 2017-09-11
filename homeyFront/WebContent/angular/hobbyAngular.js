@@ -1,8 +1,8 @@
 /**
  * 
  */
-// var prefixUrl = "http://localhost:8080/homeyBack/";
-var prefixUrl = "http://118.139.11.247:8080/homeyBack/";
+ var prefixUrl = "http://localhost:8080/homeyBack/";
+ // var prefixUrl = "https://homeyweb.azurewebsites.net/homeyBack/";
 
 var app = angular.module("myApp", []).factory("hobbyService", function() {
 	var hobbyKind = {};
@@ -43,6 +43,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 		}).then(function successCallback(response) {
 			$scope.allHobbyKind = response.data;
 		}, function errorCallback(response) {
+			console.log();
 		});
 	}
 
@@ -54,7 +55,7 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 		console.log($scope.hobbykind);
 		// hobbyService.setHobbyKind($scope.hobbykind);
 		sessionStorage.setItem('hobbyKind', kind);
-		$window.location.href = "hobby_detail2.html";
+		$window.location.href = "hobby_detail.html";
 	}
 
 	/***************************************************************************

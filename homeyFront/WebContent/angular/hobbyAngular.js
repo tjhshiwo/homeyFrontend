@@ -36,16 +36,16 @@ app.controller("getHobbiesCtrl", function($scope, $http, $window) {
 	/***************************************************************************
 	 * Get all hobby kinds
 	 */
-	$scope.getAllHobbyKind = function() {
-		$http({
-			url : prefixUrl + 'getAllHobbyServlet',
-			method : "GET"
-		}).then(function successCallback(response) {
-			$scope.allHobbyKind = response.data;
-		}, function errorCallback(response) {
-			console.log();
-		});
-	}
+//	$scope.getAllHobbyKind = function() {
+//		$http({
+//			url : prefixUrl + 'getAllHobbyServlet',
+//			method : "GET"
+//		}).then(function successCallback(response) {
+//			$scope.allHobbyKind = response.data;
+//		}, function errorCallback(response) {
+//			console.log();
+//		});
+//	}
 
 	/***************************************************************************
 	 * Get hobby details, like hobby kind, description, image

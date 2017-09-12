@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<!-- Title -->
+<title>Homey - hobby</title>
 
+<!-- Required Meta Tags Always Come First -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
 
-<title>Homey</title>
-<!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Favicon -->
+<link rel="shortcut icon" href="../../favicon.ico">
 
-<!-- Custom fonts for this template -->
-<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Caveat+Brush|Courgette|Merienda+One" rel="stylesheet">
 
-<!-- Custom styles for this template -->
-<link href="css/freelancer.css" rel="stylesheet">
+<!-- CSS Global Compulsory -->
+<link rel="stylesheet" href="unify/vendor/bootstrap/bootstrap.min.css">
+
+<!-- CSS Implementing Plugins -->
+<link rel="stylesheet" href="unify/vendor/icon-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="unify/vendor/icon-line-pro/style.css">
+<link rel="stylesheet" href="unify/vendor/icon-line/css/simple-line-icons.css">
+<link rel="stylesheet" href="unify/vendor/icon-hs/style.css">
+<link rel="stylesheet" href="unify/vendor/animate.css">
+<link rel="stylesheet" href="unify/vendor/dzsparallaxer/dzsparallaxer.css">
+<link rel="stylesheet" href="unify/vendor/dzsparallaxer/dzsscroller/scroller.css">
+<link rel="stylesheet" href="unify/vendor/dzsparallaxer/advancedscroller/plugin.css">
+<link rel="stylesheet" href="unify/vendor/cubeportfolio-full/cubeportfolio/css/cubeportfolio.min.css">
+<link rel="stylesheet" href="unify/vendor/hs-megamenu/src/hs.megamenu.css">
+<link rel="stylesheet" href="unify/vendor/hamburgers/hamburgers.min.css">
+
+<!-- CSS Unify -->
+<link rel="stylesheet" href="unify/css/unify.css">
+
+<!-- CSS Customization -->
+<link rel="stylesheet" href="unify/css/custom.css">
 
 <!-- Angular JS  -->
 <script type="text/javascript" src="js/angular-2.js"></script>
@@ -28,51 +45,72 @@
 <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
-<body id="page-top" ng-app="myApp" ng-controller="getHobbyDetailCtrl">
-	<!-- navigation bar -->
-	<!-- the reason why not using template is because of the animation embeded in JS file -->
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="index.html#page-top">Homey</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-				Menu
-				<i class="fa fa-bars"></i>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="index.html#portfolio">Hobbies</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="index.html#event">Events</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="index.html#future">Future plan</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="login.html#login">Login</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+<body ng-app="myApp" ng-controller="getHobbyDetailCtrl">
+	<main> <!-- Header --> <header id="js-header"
+		class="u-header u-header--static--lg u-header--show-hide--lg u-header--change-appearance--lg" data-header-fix-moment="500"
+		data-header-fix-effect="slide">
+		<div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 g-py-10"
+			data-header-fix-moment-exclude="g-bg-white g-py-10" data-header-fix-moment-classes="g-bg-white-opacity-0_7 u-shadow-v18 g-py-0">
+			<nav class="js-mega-menu navbar navbar-toggleable-md">
+				<div class="container">
+					<!-- Responsive Toggle Button -->
+					<button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0" type="button"
+						aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+						<span class="hamburger hamburger--slider">
+							<span class="hamburger-box">
+								<span class="hamburger-inner"></span>
+							</span>
+						</span>
+					</button>
+					<!-- End Responsive Toggle Button -->
 
-	<section style="margin-top: 100px;" ng-init="getHobbyDesc()">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-7 col-sm-12">
-					<img ng-src='images/hobbyHome/{{hobbyDesc.image}}' class="homepageImg" style="height: 100%; width: 100%" alt="">
+					<!-- Logo -->
+					<a class="navbar-brand g-font-weight-900 g-font-size-22 font-family-MeriendaOne" href="unify.html">Homey</a>
+					<!-- End Logo -->
+
+					<!-- Navigation -->
+					<div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
+						<ul class="navbar-nav ml-auto text-uppercase g-font-weight-600 u-main-nav-v8 u-sub-menu-v1">
+							<li class="nav-item  g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+								<a href="familyviolence.html" class="nav-link" id="nav-link-1">Family violence</a>
+							</li>
+							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+								<a href="coming-soon.html" class="nav-link">Alcohol addition</a>
+							</li>
+							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+								<a href="coming-soon.html" class="nav-link">Financial issue</a>
+							</li>
+							<li class="nav-item  active g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+								<a href="lonely.html" class="nav-link">Loneliness relief</a>
+							</li>
+						</ul>
+					</div>
+					<!-- End Navigation -->
 				</div>
-				<div class="col-md-5 col-sm-12">
-					<h3 style="text-align: center">{{hobbyDesc.title}}</h3>
-					<p>{{hobbyDesc.description}}</p>
+			</nav>
+		</div>
+	</header> <!-- End Header --> <!-- Section -->
+	<section class="container g-pt-100 g-pb-40" ng-init="getHobbyDesc()">
+		<div class="row">
+			<div class="col-lg-6 g-mb-60">
+				<div class="mb-4">
+					<h2 class="h3 text-uppercase mb-3">{{hobbyDesc.title}}</h2>
+					<div class="g-width-60 g-height-1 g-bg-black"></div>
 				</div>
+				<div class="mb-5">
+					<p class="h5 g-font-weight-200 g-font-size-21">{{hobbyDesc.description}}.</p>
+				</div>
+			</div>
+
+			<div class="col-lg-6 g-mb-60">
+				<img class="img-fluid" ng-src='img/hobbyPotfolio/{{hobbyDesc.image}}' alt="Image Description">
 			</div>
 		</div>
 	</section>
+	<!-- End Section -->
 
-	<section style="margin-top: -120px;">
+
+	<section class="g-mx-15 g-mb-20">
 		<div class="container" ng-init="getHobbyFromServer()">
 			<div id="angularvalue" style="display: none">{{hobbyDetail.allAddress}}</div>
 			<div class="row">
@@ -91,17 +129,47 @@
 	</section>
 
 	<!-- Footer -->
-	<div w3-include-html="layout/footer2.html"></div>
+	<div w3-include-html="layout/footer.html"></div>
 
-	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-	<div class="scroll-top d-lg-none">
-		<a class="btn btn-primary js-scroll-trigger" href="#page-top">
-			<i class="fa fa-chevron-up"></i>
-		</a>
-	</div>
+	<a class="js-go-to u-go-to-v1" href="#" data-type="fixed"
+		data-position='{
+           "bottom": 15,
+           "right": 15
+         }' data-offset-top="400"
+		data-compensation="#js-header" data-show-effect="zoomIn">
+		<i class="hs-icon hs-icon-arrow-top"></i>
+	</a> </main>
 
+	<!-- JS Global Compulsory -->
+	<script src="unify/vendor/jquery/jquery.min.js"></script>
+	<script src="unify/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+	<script src="unify/vendor/tether.min.js"></script>
+	<script src="unify/vendor/bootstrap/bootstrap.min.js"></script>
 
-	<!-- Embed header or footer -->
+	<!-- JS Implementing Plugins -->
+	<script src="unify/vendor/appear.js"></script>
+	<script src="unify/vendor/hs-megamenu/src/hs.megamenu.js"></script>
+	<script src="unify/vendor/dzsparallaxer/dzsparallaxer.js"></script>
+	<script src="unify/vendor/dzsparallaxer/dzsscroller/scroller.js"></script>
+	<script src="unify/vendor/dzsparallaxer/advancedscroller/plugin.js"></script>
+	<script src="unify/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+
+	<!-- JS Unify -->
+	<script src="unify/js/hs.core.js"></script>
+	<script src="unify/js/components/hs.header.js"></script>
+	<script src="unify/js/helpers/hs.hamburgers.js"></script>
+	<script src="unify/js/components/hs.tabs.js"></script>
+	<script src="unify/js/components/hs.counter.js"></script>
+	<script src="unify/js/components/hs.cubeportfolio.js"></script>
+	<script src="unify/js/components/hs.go-to.js"></script>
+
+	<!-- JS Customization -->
+	<script src="unify/js/custom.js"></script>
+
+	<!-- JS Plugins Init. -->
+	<!-- Replace the value of the key parameter with your own API key. -->
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
+
 	<script>
 		w3.includeHTML();
 
@@ -111,6 +179,8 @@
 		var resultsMap;
 		var geocoder;
 		var popupWindow;
+
+		var count = 0;
 
 		function initMap() {
 			addresses = document.getElementById('angularvalue').innerText;
@@ -156,6 +226,7 @@
 									})(marker, i)); */
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
 									setTimeout(function() {
+										//console.log(count++);
 										geocodeAddress(address);
 									}, 1000);
 								} else {
@@ -200,27 +271,41 @@
 			}
 
 		}
+		$(document).on(
+				'ready',
+				function() {
+					// initialization of go to
+					$.HSCore.components.HSGoTo.init('.js-go-to');
+
+					// initialization of tabs
+					$.HSCore.components.HSTabs.init('[role="tablist"]');
+
+					// initialization of counters
+					var counters = $.HSCore.components.HSCounter
+							.init('[class*="js-counter"]');
+				});
+
+		$(window).on('load', function() {
+			// initialization of header
+			$.HSCore.components.HSHeader.init($('#js-header'));
+			$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+			// initialization of HSMegaMenu component
+			$('.js-mega-menu').HSMegaMenu({
+				event : 'hover',
+				pageContainer : $('.container'),
+				breakpoint : 991
+			});
+
+			// initialization of cubeportfolio
+			$.HSCore.components.HSCubeportfolio.init('.cbp');
+		});
+
+		$(window).on('resize', function() {
+			setTimeout(function() {
+				$.HSCore.components.HSTabs.init('[role="tablist"]');
+			}, 200);
+		});
 	</script>
-
-	<!-- Replace the value of the key parameter with your own API key. -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
-
-	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js">
-		
-	</script>
-	<script src="vendor/popper/popper.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-	<!-- Plugin JavaScript -->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Contact Form JavaScript -->
-	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>
-
-	<!-- Custom scripts for this template -->
-	<script src="js/freelancer.min.js"></script>
 </body>
-
 </html>

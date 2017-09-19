@@ -79,10 +79,10 @@
 								<a href="familyviolence.html" class="nav-link" id="nav-link-1">Family violence</a>
 							</li>
 							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
-								<a href="coming-soon.html" class="nav-link">Addiction</a>
+								<a href="addiction.html" class="nav-link">Addiction</a>
 							</li>
 							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
-								<a href="coming-soon.html" class="nav-link">Financial issue</a>
+								<a href="financial.html" class="nav-link">Financial issue</a>
 							</li>
 							<li class="nav-item active g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
 								<a href="lonely.html" class="nav-link">Loneliness relief</a>
@@ -119,24 +119,24 @@
 				<div class="d-inline-block g-width-70 g-height-2 g-bg-black mb-4"></div>
 			</div>
 			<div class="cbp" data-animation="quicksand" data-x-gap="30" data-y-gap="30" ng-init="getAllHobbyKind()"
-				data-media-queries='[{"width": 1500, "cols": 3}, {"width": 1100, "cols": 3}, {"width": 800, "cols": 3}, {"width": 480, "cols": 2}, {"width": 300, "cols": 1}]'>
+				data-media-queries='[{"width": 1500, "cols": 4}, {"width": 1100, "cols": 4}, {"width": 800, "cols": 2}, {"width": 480, "cols": 2}, {"width": 300, "cols": 1}]'>
 				<!-- Hobby Blocks - Item -->
-				<div id="shortcode" class="cbp-item identity design">
+				<div id="shortcode" class="cbp-item identity design" ng-repeat="kind in allHobbyKind">
 					<div class="u-block-hover g-parent">
 						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='img/hobbyPotfolio/cooking.jpg'>
+							ng-src='img/hobbyPotfolio/{{kind.image}}' ng-click="getHobbyDetail(kind.id)">
 						<div
 							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
 							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
 								<li class="list-inline-item">
 									<a class="u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle" href=""
-										ng-click="getHobbyDetail(1)">
+										ng-click="getHobbyDetail(kind.id)">
 										<i class="icon-communication-095 u-line-icon-pro"></i>
 									</a>
 								</li>
 								<li class="list-inline-item">
 									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="img/hobbyPotfolio/cooking.jpg">
+										href="img/hobbyPotfolio/{{kind.image}}">
 										<i class="icon-communication-017 u-line-icon-pro"></i>
 									</a>
 								</li>
@@ -144,148 +144,8 @@
 						</div>
 					</div>
 					<div class="u-shadow-v19 g-bg-white text-center g-pa-25 mb-1">
-						<a ng-click="getHobbyDetail(1)" href="">
-							<h3 class="h5 g-color-black g-font-weight-600 mb-1">Cooking</h3>
-						</a>
-					</div>
-				</div>
-				<div id="shortcode" class="cbp-item identity design">
-					<div class="u-block-hover g-parent">
-						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='img/hobbyPotfolio/skiing.jpg'>
-						<div
-							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
-							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
-								<li class="list-inline-item">
-									<a class="u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle" href=""
-										ng-click="getHobbyDetail(2)">
-										<i class="icon-communication-095 u-line-icon-pro"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="img/hobbyPotfolio/skiing.jpg">
-										<i class="icon-communication-017 u-line-icon-pro"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="u-shadow-v19 g-bg-white text-center g-pa-25 mb-1">
-						<a ng-click="getHobbyDetail(2)" href="">
-							<h3 class="h5 g-color-black g-font-weight-600 mb-1">Ice skating</h3>
-						</a>
-					</div>
-				</div>
-				<div id="shortcode" class="cbp-item identity design">
-					<div class="u-block-hover g-parent">
-						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='img/hobbyPotfolio/yoga.jpg'>
-						<div
-							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
-							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
-								<li class="list-inline-item">
-									<a class="u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle" href=""
-										ng-click="getHobbyDetail(3)">
-										<i class="icon-communication-095 u-line-icon-pro"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="img/hobbyPotfolio/yoga.jpg">
-										<i class="icon-communication-017 u-line-icon-pro"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="u-shadow-v19 g-bg-white text-center g-pa-25 mb-1">
-						<a ng-click="getHobbyDetail(3)" href="">
-							<h3 class="h5 g-color-black g-font-weight-600 mb-1">Yoga</h3>
-						</a>
-					</div>
-				</div>
-				<div id="shortcode" class="cbp-item identity design">
-					<div class="u-block-hover g-parent">
-						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='img/hobbyPotfolio/arts.jpg'>
-						<div
-							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
-							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
-								<li class="list-inline-item">
-									<a class="u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle" href=""
-										ng-click="getHobbyDetail(4)">
-										<i class="icon-communication-095 u-line-icon-pro"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="img/hobbyPotfolio/arts.jpg">
-										<i class="icon-communication-017 u-line-icon-pro"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="u-shadow-v19 g-bg-white text-center g-pa-25 mb-1">
-						<a ng-click="getHobbyDetail(4)" href="">
-							<h3 class="h5 g-color-black g-font-weight-600 mb-1">Arts</h3>
-						</a>
-					</div>
-				</div>
-				<div id="shortcode" class="cbp-item identity design">
-					<div class="u-block-hover g-parent">
-						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='img/hobbyPotfolio/reading.jpg'>
-						<div
-							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
-							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
-								<li class="list-inline-item">
-									<a class="u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle" href=""
-										ng-click="getHobbyDetail(5)">
-										<i class="icon-communication-095 u-line-icon-pro"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="img/hobbyPotfolio/reading.jpg">
-										<i class="icon-communication-017 u-line-icon-pro"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="u-shadow-v19 g-bg-white text-center g-pa-25 mb-1">
-						<a ng-click="getHobbyDetail(5)" href="">
-							<h3 class="h5 g-color-black g-font-weight-600 mb-1">Reading</h3>
-						</a>
-					</div>
-				</div>
-				<div id="shortcode" class="cbp-item identity design">
-					<div class="u-block-hover g-parent">
-						<img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
-							ng-src='img/hobbyPotfolio/fishing.jpg'>
-						<div
-							class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
-							<ul class="align-items-end flex-column list-inline mt-auto ml-auto mb-0">
-								<li class="list-inline-item">
-									<a class="u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle" href=""
-										ng-click="getHobbyDetail(6)">
-										<i class="icon-communication-095 u-line-icon-pro"></i>
-									</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
-										href="img/hobbyPotfolio/fishing.jpg">
-										<i class="icon-communication-017 u-line-icon-pro"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="u-shadow-v19 g-bg-white text-center g-pa-25 mb-1">
-						<a ng-click="getHobbyDetail(6)" href="">
-							<h3 class="h5 g-color-black g-font-weight-600 mb-1">Fishing</h3>
+						<a ng-click="getHobbyDetail(kind.id)" href="">
+							<h3 class="h5 g-color-black g-font-weight-600 mb-1">{{kind.name}}</h3>
 						</a>
 					</div>
 				</div>
@@ -330,9 +190,9 @@
 										</div>
 									</form>
 								</div>
-								<!-- Categories -->
-								<hr class="g-brd-gray-light-v4 g-my-15">
-								<ul class="list-unstyled g-mt-15" style="padding-left:170px;">
+								<!-- Events -->
+								<br/>
+								<ul class="list-unstyled g-mt-10" style="padding-left:100px;">
 									<li class="my-3" ng-repeat="event in eventArray">
 										<div class="d-flex g-mx-10">
 											<span class="u-icon-v2 u-icon-size--sm g-color-white {{bgColorArray[$index]}} rounded-circle">
@@ -462,7 +322,11 @@
 									});
 									google.maps.event.addListener(marker, 'click', (function(marker) {
 										return function() {
-											var content = locationArray[0]+"<br>"+ locationArray[1]+"<br>"+locationArray[2];
+											var content = locationArray[0]+"<br>"+ locationArray[1]
+											+ "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
+											+ locationArray[1]
+											+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
+											+ "<br>"+locationArray[2];
 											popupWindow.setContent(content);
 											popupWindow.open(resultsMap, marker);
 										}

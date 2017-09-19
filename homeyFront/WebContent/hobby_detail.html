@@ -65,7 +65,7 @@
 					<!-- End Responsive Toggle Button -->
 
 					<!-- Logo -->
-					<a class="navbar-brand g-font-weight-900 g-font-size-22 font-family-MeriendaOne" href="unify.html">Homey</a>
+					<a class="navbar-brand g-font-weight-900 g-font-size-22 font-family-MeriendaOne" href="index.html">Homey</a>
 					<!-- End Logo -->
 
 					<!-- Navigation -->
@@ -218,12 +218,15 @@
 										position : results[0].geometry.location
 									//animation : google.maps.Animation.DROP
 									});
-									/* google.maps.event.addListener(marker, 'click', (function(marker) {
+									google.maps.event.addListener(marker, 'click', (function(marker) {
 										return function() {
-											popupWindow.setContent(address);
+											var content = address + "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
+												+ address
+											+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
+											popupWindow.setContent(content);
 											popupWindow.open(resultsMap, marker);
 										}
-									})(marker, i)); */
+									})(marker, i)); 
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
 									setTimeout(function() {
 										//console.log(count++);

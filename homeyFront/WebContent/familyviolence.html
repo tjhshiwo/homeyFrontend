@@ -72,14 +72,14 @@
 					<!-- Navigation -->
 					<div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
 						<ul class="navbar-nav ml-auto text-uppercase g-font-weight-600 u-main-nav-v8 u-sub-menu-v1">
-							<li class="nav-item active g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
-								<a href="familyviolence.html" class="nav-link" id="nav-link-1">Family violence</a>
+							<li class="nav-item g-bg-red g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
+								<a href="familyviolence.html" class="nav-link g-color-white" id="nav-link-1">Family violence</a>
 							</li>
 							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
-								<a href="coming-soon.html" class="nav-link">Addiction</a>
+								<a href="addiction.html" class="nav-link">Addiction</a>
 							</li>
 							<li class="nav-item g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
-								<a href="coming-soon.html" class="nav-link">Financial issue</a>
+								<a href="financial.html" class="nav-link">Financial issue</a>
 							</li>
 							<li class="nav-item  g-mx-2--md g-mx-5--xl g-mb-5 g-mb-0--lg">
 								<a href="lonely.html" class="nav-link">Loneliness relief</a>
@@ -103,7 +103,7 @@
 						<span class="g-font-size-50 g-font-weight-600">33%</span>
 						of homeless people <br>suffer from family violence
 					</h3>
-					<span class="d-block g-color-black-opacity-0_8 g-font-size-16 mb-5">- Homelessness Australia</span>
+					<a class="d-block g-color-white g-font-size-20 mb-5 g-text-underline--none--hover" href="tel:000"> Emergency?&nbsp;<i class="fa fa-phone"></i>&nbsp;Call <span class="g-font-size-20" style="font-weight: bold">000</span></a>
 					<a class="js-fancybox u-link-v5 g-color-black" href="https://www.youtube.com/watch?v=uocoMbCg9N8" title="Single Image">
 						<span
 							class="align-middle u-icon-v3 u-block-hover--scale g-bg-white g-color-black g-color-primary--hover g-rounded-50x g-cursor-pointer mr-2">
@@ -148,14 +148,14 @@
 		</div>
 	</section>
 
-	<section class="container" ng-app="myApp" ng-controller="getHobbiesCtrl">
+	<section class="container" ng-app="myApp" ng-controller="homelessIssueCtrl">
 		<header class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
 			<h2 class="h4 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600 text-uppercase">Ask Homey for help</h2>
 		</header>
 		<p class="g-font-size-16">Homey provides key information of some institutions which can help you in this situation.</p>
-		<form class="row" ng-submit="searchSuburb4Institution()">
+		<form class="row" ng-submit="searchSuburb4FamilyViolence()" >
 			<!-- <div id="places" style="display: none">{{famVioPlaces.allAddress}}</div> -->
-			<div class="row col-md-7">
+			<div class="row col-md-8">
 				<div class="col-md-4">
 					<!-- Icon Blocks -->
 					<div class="media g-py-15 g-mr-50">
@@ -180,7 +180,7 @@
 							</span>
 						</div>
 						<div class="media-body">
-							<p class="g-color-black g-line-height-1_6">Pharmacy / service</p>
+							<p class="g-color-black g-line-height-1_6">Pharmacy HealthService</p>
 						</div>
 					</div>
 					<!-- End Icon Blocks -->
@@ -195,13 +195,13 @@
 							</span>
 						</div>
 						<div class="media-body">
-							<p class=" g-color-black g-line-height-1_6">Hospital / emergency</p>
+							<p class=" g-color-black g-line-height-1_6">Hospital / Emergency</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5">
-				<div class="input-group u-shadow-v6 rounded g-mb-20 u-divider-right">
+			<div class="col-md-4">
+				<div class="input-group u-shadow-v6 rounded g-mb-20 g-ml-30--lg">
 					<input class="form-control form-control-md g-brd-white g-font-size-16 border-right-0 pr-0 g-py-15" type="text"
 						placeholder="Enter postcode or suburb" ng-model="postOrSub" name="postOrSub">
 					<div class="input-group-addon d-flex align-items-center g-bg-white g-brd-white g-color-gray-light-v1 g-pa-2">
@@ -213,46 +213,55 @@
 			</div>
 		</form>
 
-		<div class="panel panel-default g-mb-40">
-			<div class="panel-heading"></div>
-			<div class="panel-body">
-				<div id="gmap-basic-marker" style="height: 500px; width: 100%;"></div>
+		<div class="row" ng-init="searchSuburb4FamilyViolence()">
+			<div class="col-lg-8 g-mb-60">
+				<div class="panel panel-default g-mb-40">
+					<div class="panel-heading"></div>
+					<div class="panel-body">
+						<div id="gmap-basic-marker" style="height: 500px; width: 100%;"></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 g-mb-60">
+				<div class="panel panel-default g-mb-40">
+					<div class="panel-heading"></div>
+					<div class="panel-body" style="max-height: 500px; overflow-y: scroll">
+						<ul class="list-unstyled">
+							<li ng-repeat="add in famVioPlacesArr"
+								ng-init="addItem = add.split('='); 
+										bgColor = getAddBgColor(addItem[2]); 
+										color = getAddColor(addItem[2]); 
+										icon = getAddIcon(addItem[2]); 
+										hoverColor = getAddHoverColor(addItem[2])">
+								<a class="addListCss g-text-underline--none--hover" href="" ng-click="openInfo($index);">
+									<div class="media g-py-15 g-mr-50 g-mb-minus-10 g-mt-minus-10">
+										<div class="mr-3">
+											<span class="u-icon-v2 u-icon-size--xs g-rounded-50 {{color}} {{hoverColor}}">
+												<i class="{{icon}}"></i>
+											</span>
+										</div>
+										<div class="media-body">
+											<p class="h6 g-color-black g-py-7">{{addItem[0]}}</p>
+										</div>
+									</div>
+									<div class="g-ml-5 g-mt-minus-15">
+										<i class="icon-finance-106 u-line-icon-pro"></i>
+										{{addItem[1]}}
+									</div>
+								</a>
+								<hr class="g-mb-minus-0 g-mt-minus-0">
+
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 
 	</section>
-	<hr class="g-brd-gray-light-v4 my-0">
 
 	<!-- Statistic -->
 	<hr class="g-brd-gray-light-v4 my-0">
-
-	<!-- Most Quality Solution -->
-
-<!-- 	<section class="g-brd-top g-brd-bottom g-brd-gray-light-v4 g-pt-50">
-		<div class="container">
-			<div class="row text-center text-uppercase">
-				<div class="col-lg-3 col-sm-6 g-brd-right g-brd-gray-light-v4 g-mb-50">
-					<div class="js-counter g-color-gray-dark-v2 g-font-size-35 g-font-weight-300 g-mb-7">52147</div>
-					<h4 class="h6 g-color-gray-dark-v5">Code Lines</h4>
-				</div>
-
-				<div class="col-lg-3 col-sm-6 g-brd-right--lg g-brd-gray-light-v4 g-mb-50">
-					<div class="js-counter g-color-gray-dark-v2 g-font-size-35 g-font-weight-300 g-mb-7">24583</div>
-					<h4 class="h6 g-color-gray-dark-v5">Projects</h4>
-				</div>
-
-				<div class="col-lg-3 col-sm-6 g-brd-right g-brd-gray-light-v4 g-mb-50">
-					<div class="js-counter g-color-gray-dark-v2 g-font-size-35 g-font-weight-300 g-mb-7">7348</div>
-					<h4 class="h6 g-color-gray-dark-v5">Working Hours</h4>
-				</div>
-
-				<div class="col-lg-3 col-sm-6 g-mb-50">
-					<div class="js-counter g-color-gray-dark-v2 g-font-size-35 g-font-weight-300 g-mb-7">87904</div>
-					<h4 class="h6 g-color-gray-dark-v5">Job Offers</h4>
-				</div>
-			</div>
-		</div>
-	</section> -->
 
 	<!-- <iframe width="420" height="315" src="https://www.youtube.com/embed/XGSy3_Czz8k"> </iframe> --> <!-- Replace the value of the key parameter with your own API key. -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBk4msAZURGdLH8Cw8fB_YxPmTBkvEQ0FE&callback=initMap"></script>
@@ -274,6 +283,11 @@
 	<script>
 		w3.includeHTML();
 
+		var markers = [];
+		function openInfo(id) {
+			google.maps.event.trigger(markers[id], 'click');
+		}
+
 		//window.onload = initMap;
 		var resultsMap;
 		var addresses = "";
@@ -289,15 +303,17 @@
 			});
 			findCurrentLocation();
 			geocoder = new google.maps.Geocoder();
-			var addressesArray = addresses.split("^");
-			for (i = 0; i < addressesArray.length; i++) {
-				geocodeAddress(addressesArray[i]);
+			if (addresses != null) {
+				var addressesArray = addresses.split("^");
+				markers = [];
+				for (i = 0; i < addressesArray.length; i++) {
+					geocodeAddress(addressesArray[i]);
+				}
 			}
 		};
 
 		// potential issue: some marker may be rendered for more than once, still don't know why
 		function geocodeAddress(address) {
-			console.log("geo address: " + address);
 			var locationArray = address.split("=");
 			popupWindow = new google.maps.InfoWindow();
 			geocoder
@@ -313,7 +329,8 @@
 											{
 												map : resultsMap,
 												position : results[0].geometry.location,
-												icon: "img/map/"+locationArray[2]
+												icon : "img/map/"
+														+ locationArray[2]
 											//animation : google.maps.Animation.DROP
 											});
 									google.maps.event
@@ -322,13 +339,27 @@
 													'click',
 													(function(marker) {
 														return function() {
-															var content = "<strong>Name: </strong>"+locationArray[0]
+															var content = "<div class='h6'><strong>Name: </strong>"
+																	+ locationArray[0]
+																	// address
 																	+ "<br><strong>Address: </strong>"
 																	+ locationArray[1]
+																	// address button
+																	+ "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
+																	+ locationArray[1]
+																	+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
+																	// phone
 																	+ "<br><strong>Phone: </strong>"
-																	+ locationArray[3]+ "<br><strong>Opening hour: </strong>"
-																	+ locationArray[4]+ "<br><strong>Tram routes: </strong>"
-																	+ locationArray[5];
+																	+ locationArray[3]
+																	// phone button
+																	+ "&nbsp;&nbsp;<a class='btn btn-sm u-btn-outline-blue' href='tel:"
+																	+ locationArray[3]
+																	+ "'><i class='fa fa-phone'></i> Contact us</a>"
+																	+ "<br><strong>Opening hour: </strong>"
+																	+ locationArray[4]
+																	+ "<br><strong>Tram routes: </strong>"
+																	+ locationArray[5]
+																	+ "</div>";
 															popupWindow
 																	.setContent(content);
 															popupWindow.open(
@@ -336,7 +367,13 @@
 																	marker);
 														}
 													})(marker, i));
+									console.log("geo address: "
+											+ locationArray[1]);
+									markers.push(marker);
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+									console
+											.log("GeocoderStatus.OVER_QUERY_LIMIT: "
+													+ locationArray[1]);
 									setTimeout(function() {
 										//console.log(count++);
 										geocodeAddress(address);
@@ -382,8 +419,6 @@
 				handleLocationError(false, infoWindow, resultsMap.getCenter());
 			}
 		};
-
-		
 	</script>
 	<!-- JS Global Compulsory -->
 	<script src="unify/vendor/jquery/jquery.min.js"></script>
@@ -412,40 +447,38 @@
 	<!-- JS Customization -->
 	<script src="unify/js/custom.js"></script>
 	<script>
-	$(document).on(
-			'ready',
-			function() {
-				// initialization of carousel
-				$.HSCore.components.HSCarousel.init('.js-carousel');
+		$(document).on('ready', function() {
+			// initialization of carousel
+			$.HSCore.components.HSCarousel.init('.js-carousel');
 
-				// initialization of tabs
-				$.HSCore.components.HSTabs.init('[role="tablist"]');
-
-				// initialization of popups
-				$.HSCore.components.HSPopup.init('.js-fancybox');
-
-				// initialization of go to
-				$.HSCore.components.HSGoTo.init('.js-go-to');
-			});
-
-	$(window).on('load', function() {
-		// initialization of header
-		$.HSCore.components.HSHeader.init($('#js-header'));
-		$.HSCore.helpers.HSHamburgers.init('.hamburger');
-
-		// initialization of HSMegaMenu component
-		$('.js-mega-menu').HSMegaMenu({
-			event : 'hover',
-			pageContainer : $('.container'),
-			breakpoint : 991
-		});
-	});
-
-	$(window).on('resize', function() {
-		setTimeout(function() {
+			// initialization of tabs
 			$.HSCore.components.HSTabs.init('[role="tablist"]');
-		}, 200);
-	});
+
+			// initialization of popups
+			$.HSCore.components.HSPopup.init('.js-fancybox');
+
+			// initialization of go to
+			$.HSCore.components.HSGoTo.init('.js-go-to');
+		});
+
+		$(window).on('load', function() {
+			// initialization of header
+			$.HSCore.components.HSHeader.init($('#js-header'));
+			$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+			// initialization of HSMegaMenu component
+			$('.js-mega-menu').HSMegaMenu({
+				event : 'hover',
+				pageContainer : $('.container'),
+				breakpoint : 991
+			});
+		});
+
+		$(window).on('resize', function() {
+			setTimeout(function() {
+				$.HSCore.components.HSTabs.init('[role="tablist"]');
+			}, 200);
+		});
 	</script>
 </body>
 </html>

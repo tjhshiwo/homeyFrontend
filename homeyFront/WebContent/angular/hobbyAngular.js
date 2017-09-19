@@ -291,6 +291,11 @@ app.controller("homelessIssueCtrl", function($scope, $http) {
 			return "g-color-teal";
 		case "counselling.png":
 			return "g-color-blue";
+		case "legalAdvice.png":
+			return "g-color-teal";
+		case "employ.png":
+			return "g-color-blue";
+		// for addiction
 		default:
 			return "g-color-blue";
 		}
@@ -306,6 +311,10 @@ app.controller("homelessIssueCtrl", function($scope, $http) {
 		case "hospital.png":
 			return "g-bg-teal--hover g-color-white--hover";
 		case "counselling.png":
+			return "g-bg-primary--hover g-color-white--hover";
+		case "legalAdvice.png":
+			return "g-bg-teal--hover g-color-white--hover";
+		case "employ.png":
 			return "g-bg-primary--hover g-color-white--hover";
 		default:
 			return "g-bg-primary--hover g-color-white--hover";
@@ -323,6 +332,10 @@ app.controller("homelessIssueCtrl", function($scope, $http) {
 			return "g-bg-teal";
 		case "counselling.png":
 			return "g-bg-blue";
+		case "legalAdvice.png":
+			return "g-bg-teal";
+		case "employ.png":
+			return "g-bg-blue";
 		default:
 			return "g-bg-blue";
 		}
@@ -339,6 +352,10 @@ app.controller("homelessIssueCtrl", function($scope, $http) {
 			return "icon-medical-019 u-line-icon-pro";
 		case "counselling.png":
 			return "icon-science-020 u-line-icon-pro";
+		case "legalAdvice.png":
+			return "icon-finance-025 u-line-icon-pro";
+		case "employ.png":
+			return "icon-finance-125 u-line-icon-pro";
 		default:
 			return "icon-medical-022 u-line-icon-pro";
 		}

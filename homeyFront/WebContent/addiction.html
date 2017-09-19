@@ -133,7 +133,7 @@
 			<div class="col-md-4 g-brd-around g-brd-gray-light-v4 text-center rounded g-ml-minus-1--md g-mr-minus-1--md g-mb-30">
 				<div class="g-pa-30">
 					<span class="d-block g-font-size-40 g-color-blue mb-2">2450 +</span>
-					<h3 class="h5 g-color-black g-font-weight-700 g-font-size-18 g-font-weight-600 ">Problematic alcohol use </h3>
+					<h3 class="h5 g-color-black g-font-weight-700 g-font-size-18 g-font-weight-600 ">Problematic alcohol use</h3>
 					<p class="g-color-gray-dark-v4">Over 2450 people sought for homelessness assistance due to problematic alcohol use.</p>
 				</div>
 			</div>
@@ -153,7 +153,7 @@
 			<h2 class="h4 u-heading-v2__title g-color-gray-dark-v2 g-font-weight-600 text-uppercase">Ask Homey for help</h2>
 		</header>
 		<p class="g-font-size-16">Homey provides key information of some institutions which can help you in this situation.</p>
-		<form class="row" ng-submit="searchSuburb4Addiction">
+		<form class="row" ng-submit="searchSuburb4Addiction()">
 			<div class="row col-md-8">
 				<div class="col-md-12">
 					<!-- Icon Blocks -->
@@ -259,7 +259,7 @@
 		function openInfo(id) {
 			google.maps.event.trigger(markers[id], 'click');
 		}
-		
+
 		//window.onload = initMap;
 		var resultsMap;
 		var addresses = "";
@@ -275,9 +275,12 @@
 			});
 			findCurrentLocation();
 			geocoder = new google.maps.Geocoder();
-			var addressesArray = addresses.split("^");
-			for (i = 0; i < addressesArray.length; i++) {
-				geocodeAddress(addressesArray[i]);
+			if (addresses != null) {
+				var addressesArray = addresses.split("^");
+				markers = [];
+				for (i = 0; i < addressesArray.length; i++) {
+					geocodeAddress(addressesArray[i]);
+				}
 			}
 		};
 
@@ -298,7 +301,7 @@
 											{
 												map : resultsMap,
 												position : results[0].geometry.location,
-												icon: "img/map/drug.png"
+												icon : "img/map/drug.png"
 											//animation : google.maps.Animation.DROP
 											});
 									google.maps.event
@@ -308,26 +311,26 @@
 													(function(marker) {
 														return function() {
 															var content = "<div class='h6'><strong>Name: </strong>"
-																+ locationArray[0]
-																// address
-																+ "<br><strong>Address: </strong>"
-																+ locationArray[1]
-																// address button
-																+ "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
-																+ locationArray[1]
-																+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
-																// phone
-																+ "<br><strong>Phone: </strong>"
-																+ locationArray[3]
-																// phone button
-																+ "&nbsp;&nbsp;<a class='btn btn-sm u-btn-outline-blue' href='tel:"
+																	+ locationArray[0]
+																	// address
+																	+ "<br><strong>Address: </strong>"
+																	+ locationArray[1]
+																	// address button
+																	+ "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
+																	+ locationArray[1]
+																	+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
+																	// phone
+																	+ "<br><strong>Phone: </strong>"
+																	+ locationArray[3]
+																	// phone button
+																	+ "&nbsp;&nbsp;<a class='btn btn-sm u-btn-outline-blue' href='tel:"
 																+ locationArray[3]
 																+ "'><i class='fa fa-phone'></i> Contact us</a>"
-																+ "<br><strong>Opening hour: </strong>"
-																+ locationArray[4]
-																+ "<br><strong>Tram routes: </strong>"
-																+ locationArray[5]
-																+ "</div>";
+																	+ "<br><strong>Opening hour: </strong>"
+																	+ locationArray[4]
+																	+ "<br><strong>Tram routes: </strong>"
+																	+ locationArray[5]
+																	+ "</div>";
 															popupWindow
 																	.setContent(content);
 															popupWindow.open(
@@ -384,8 +387,6 @@
 				handleLocationError(false, infoWindow, resultsMap.getCenter());
 			}
 		};
-
-		
 	</script>
 	<!-- JS Global Compulsory -->
 	<script src="unify/vendor/jquery/jquery.min.js"></script>
@@ -414,40 +415,38 @@
 	<!-- JS Customization -->
 	<script src="unify/js/custom.js"></script>
 	<script>
-	$(document).on(
-			'ready',
-			function() {
-				// initialization of carousel
-				$.HSCore.components.HSCarousel.init('.js-carousel');
+		$(document).on('ready', function() {
+			// initialization of carousel
+			$.HSCore.components.HSCarousel.init('.js-carousel');
 
-				// initialization of tabs
-				$.HSCore.components.HSTabs.init('[role="tablist"]');
-
-				// initialization of popups
-				$.HSCore.components.HSPopup.init('.js-fancybox');
-
-				// initialization of go to
-				$.HSCore.components.HSGoTo.init('.js-go-to');
-			});
-
-	$(window).on('load', function() {
-		// initialization of header
-		$.HSCore.components.HSHeader.init($('#js-header'));
-		$.HSCore.helpers.HSHamburgers.init('.hamburger');
-
-		// initialization of HSMegaMenu component
-		$('.js-mega-menu').HSMegaMenu({
-			event : 'hover',
-			pageContainer : $('.container'),
-			breakpoint : 991
-		});
-	});
-
-	$(window).on('resize', function() {
-		setTimeout(function() {
+			// initialization of tabs
 			$.HSCore.components.HSTabs.init('[role="tablist"]');
-		}, 200);
-	});
+
+			// initialization of popups
+			$.HSCore.components.HSPopup.init('.js-fancybox');
+
+			// initialization of go to
+			$.HSCore.components.HSGoTo.init('.js-go-to');
+		});
+
+		$(window).on('load', function() {
+			// initialization of header
+			$.HSCore.components.HSHeader.init($('#js-header'));
+			$.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+			// initialization of HSMegaMenu component
+			$('.js-mega-menu').HSMegaMenu({
+				event : 'hover',
+				pageContainer : $('.container'),
+				breakpoint : 991
+			});
+		});
+
+		$(window).on('resize', function() {
+			setTimeout(function() {
+				$.HSCore.components.HSTabs.init('[role="tablist"]');
+			}, 200);
+		});
 	</script>
 </body>
 </html>

@@ -304,7 +304,6 @@
 		function geocodeAddress(address) {
 			console.log("geo address: " + address);
 			var locationArray = address.split("=");
-			popupWindow = new google.maps.InfoWindow();
 			geocoder
 					.geocode(
 							{
@@ -327,6 +326,7 @@
 											+ locationArray[1]
 											+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
 											+ "<br>"+locationArray[2];
+											popupWindow = new google.maps.InfoWindow();
 											popupWindow.setContent(content);
 											popupWindow.open(resultsMap, marker);
 										}
@@ -347,9 +347,6 @@
 		 * find current location
 		 */
 		function findCurrentLocation() {
-			var infoWindow = new google.maps.InfoWindow({
-				map : resultsMap
-			});
 			// Try HTML5 geolocation.
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
@@ -357,9 +354,6 @@
 						lat : position.coords.latitude,
 						lng : position.coords.longitude
 					};
-					// don't need the inforWindow for now
-					// infoWindow.setPosition(pos);
-					// infoWindow.setContent('You');
 					resultsMap.setCenter(pos);
 					var Marker = new google.maps.Marker({
 						map : resultsMap,

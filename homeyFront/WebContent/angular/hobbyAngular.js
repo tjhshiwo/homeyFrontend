@@ -1,8 +1,8 @@
 /**
  * 
  */
-var prefixUrl = "http://localhost:8080/homeyBack/";
-// var prefixUrl = "https://hoomi.azurewebsites.net/homeyBack/";
+var prefixUrl = "http://localhost:8080/homeyBack/"; 
+// var prefixUrl = "https://homi.azurewebsites.net/homeyBack/";
 
 var app = angular.module("myApp", []).factory("hobbyService", function() {
 	var hobbyKind = {};

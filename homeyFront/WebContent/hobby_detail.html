@@ -194,9 +194,11 @@
 			});
 			findCurrentLocation();
 			geocoder = new google.maps.Geocoder();
-			var addressesArray = addresses.split("^");
-			for (i = 0; i < addressesArray.length; i++) {
-				geocodeAddress(addressesArray[i]);
+			if (addresses != null) {
+				var addressesArray = addresses.split("^");
+				for (i = 0; i < addressesArray.length; i++) {
+					geocodeAddress(addressesArray[i]);
+				}
 			}
 		}
 
@@ -218,15 +220,23 @@
 										position : results[0].geometry.location
 									//animation : google.maps.Animation.DROP
 									});
-									google.maps.event.addListener(marker, 'click', (function(marker) {
-										return function() {
-											var content = address + "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
-												+ address
-											+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
-											popupWindow.setContent(content);
-											popupWindow.open(resultsMap, marker);
-										}
-									})(marker, i)); 
+									google.maps.event
+											.addListener(
+													marker,
+													'click',
+													(function(marker) {
+														return function() {
+															var content = address
+																	+ "&nbsp;&nbsp;<a class='btn btn-sm  u-btn-outline-blue' href='https://maps.google.com/?q="
+																	+ address
+																	+ "' target='_blank'><i class='fa fa-location-arrow'></i> Come to us</a>"
+															popupWindow
+																	.setContent(content);
+															popupWindow.open(
+																	resultsMap,
+																	marker);
+														}
+													})(marker, i));
 								} else if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
 									setTimeout(function() {
 										//console.log(count++);
@@ -244,9 +254,6 @@
 		 * find current location
 		 */
 		function findCurrentLocation() {
-			var infoWindow = new google.maps.InfoWindow({
-				map : resultsMap
-			});
 			// Try HTML5 geolocation.
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(function(position) {
@@ -254,9 +261,6 @@
 						lat : position.coords.latitude,
 						lng : position.coords.longitude
 					};
-					// don't need the inforWindow for now
-					// infoWindow.setPosition(pos);
-					// infoWindow.setContent('You');
 					resultsMap.setCenter(pos);
 					var Marker = new google.maps.Marker({
 						map : resultsMap,
